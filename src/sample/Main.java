@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 // I am Anmol
 // I am naman
+// I am Anmol2
 //I am Naman2
 public class Main extends Application {
     public static Stage window;
