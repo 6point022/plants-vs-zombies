@@ -48,7 +48,7 @@
                 <Font name="Arial Black" size="17.0" />
             </font>
         </Label>
-        <ImageView fitHeight="41.0" fitWidth="78.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true">
+        <ImageView fx:id="peashooterButton" fitHeight="41.0" fitWidth="78.0" layoutX="14.0" layoutY="11.0" onMouseClicked="#peashooterButtonHandler" pickOnBounds="true">
             <image>
                 <Image url="@../resources/peashooter.png" />
             </image>
@@ -107,17 +107,17 @@
             <Image url="@../resources/lawn_mower.gif" />
          </image>
       </ImageView>
-      <ImageView fitHeight="44.0" fitWidth="78.0" layoutX="15.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="sunflowerButton" fitHeight="44.0" fitWidth="78.0" layoutX="15.0" layoutY="52.0" onMouseClicked="#sunflowerButtonHandler" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../resources/sunflower.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="44.0" fitWidth="78.0" layoutX="14.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="wallnutButton" fitHeight="44.0" fitWidth="78.0" layoutX="14.0" layoutY="99.0" onMouseClicked="#wallnutButtonHandler" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../resources/wallnut.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="44.0" fitWidth="78.0" layoutX="14.0" layoutY="144.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="cherryBombButton" fitHeight="44.0" fitWidth="78.0" layoutX="14.0" layoutY="144.0" onMouseClicked="#cherryBombButtonHandler" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../resources/cherrybomb.png" />
          </image>

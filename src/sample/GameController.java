@@ -89,4 +89,20 @@ public class GameController {
         menuAlert.setVisible(false);
         menuAlert.setDisable(true);
     }
+
+    public void peashooterButtonHandler() {
+        System.out.println("Clicked peashooter");
+    }
+
+    public void sunflowerButtonHandler() {
+        System.out.println("Clicked sunflower");
+    }
+
+    public void wallnutButtonHandler() {
+        System.out.println("Clicked wallnut");
+    }
+
+    public void cherryBombButtonHandler() {
+        System.out.println("Clicked cherry bomb");
+    }
 }
