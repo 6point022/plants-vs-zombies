@@ -10,7 +10,12 @@ import javafx.stage.Stage;
 // I am naman
 // I am Anmol2
 //I am Naman2
+<<<<<<< Updated upstream
 // I am Naman3
+=======
+//I am anmol3
+
+>>>>>>> Stashed changes
 public class Main extends Application {
     public static Stage window;
     public static int width = 839;//600;
