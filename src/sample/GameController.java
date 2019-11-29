@@ -38,6 +38,8 @@ public class GameController {
     @FXML
     public ImageView sunToken;
 
+
+
     public void dropSunToken() throws Exception {
         System.out.println("clicked counter");
         sunToken.setVisible(true);
@@ -50,6 +52,7 @@ public class GameController {
 
     public void zombieNormalHandler() throws Exception {
         System.out.println("clicked zombie");
+        System.out.println(zombieNormal);
         TranslateTransition transition = new TranslateTransition();
         transition.setDuration(Duration.seconds(6));
         transition.setToX(-500);
