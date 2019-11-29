@@ -11,14 +11,13 @@ public class Main extends Application {
     public static int width = 839;//600;
     public static int height = 387;//336;
 
-
     @Override
     public void start(Stage primaryStage) throws Exception{
         window = primaryStage;
 
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        Parent root2 = FXMLLoader.load(getClass().getResource("level1.fxml"));
-        System.out.println(root2.getChildrenUnmodifiable());
+//        Parent root2 = FXMLLoader.load(getClass().getResource("level1.fxml"));
+//        System.out.println(root2.getChildrenUnmodifiable());
 
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, width, height));

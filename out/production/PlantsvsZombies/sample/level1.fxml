@@ -5,9 +5,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="387.0" prefWidth="839.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GameController">
@@ -17,34 +14,6 @@
             <Image url="@../resources/level1.jpg" />
          </image>
       </ImageView>
-      <GridPane layoutX="237.0" layoutY="169.0" prefHeight="61.0" prefWidth="587.0" AnchorPane.bottomAnchor="157.0" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="169.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <ImageView fx:id="peashooterPlanted" fitHeight="56.0" fitWidth="57.0" onMouseClicked="#peashooterHandler" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
-               <image>
-                  <Image url="@../resources/peashooterplanted.gif" />
-               </image>
-            </ImageView>
-         </children>
-      </GridPane>
       <ImageView fitHeight="67.0" fitWidth="79.0" layoutX="159.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../resources/lawn_mower.gif" />
@@ -60,7 +29,7 @@
             <Font name="Arial Black" size="17.0" />
          </font>
       </Label>
-      <ImageView fitHeight="41.0" fitWidth="78.0" layoutX="14.0" layoutY="11.0" onMouseClicked="#peashooterButtonHandler" pickOnBounds="true">
+      <ImageView fx:id="peashooterSeed" fitHeight="41.0" fitWidth="78.0" layoutX="14.0" layoutY="11.0" onMouseClicked="#seedClickHandler" pickOnBounds="true">
          <image>
             <Image url="@../resources/peashooter.png" />
          </image>
@@ -99,7 +68,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <ImageView fx:id="zombieNormal" fitHeight="117.0" fitWidth="67.0" layoutX="746.0" layoutY="110.0" onMouseClicked="#zombieNormalHandler">
+      <ImageView fx:id="zombieNormal" fitHeight="117.0" fitWidth="67.0" layoutX="733.0" layoutY="256.0" onMouseClicked="#zombieNormalHandler">
          <image>
             <Image url="@../resources/zombie_normal.gif" />
          </image>
@@ -109,10 +78,24 @@
             <Image url="@../resources/sun.gif" />
          </image>
       </ImageView>
-      <ImageView fx:id="pea" fitHeight="26.0" fitWidth="27.0" layoutX="373.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="pea" fitHeight="26.0" fitWidth="27.0" layoutX="379.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../resources/pea.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="peashooterPlanted" fitHeight="56.0" fitWidth="57.0" layoutX="307.0" layoutY="274.0" onMouseClicked="#peashooterHandler" preserveRatio="true">
+         <image>
+            <Image url="@../resources/peashooterplanted.gif" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tile1" fitHeight="44.0" fitWidth="67.0" layoutX="237.0" layoutY="188.0" onMouseClicked="#tileHandler" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="tile2" fitHeight="44.0" fitWidth="56.0" layoutX="307.0" layoutY="188.0" onMouseClicked="#tileHandler" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="tile3" fitHeight="44.0" fitWidth="56.0" layoutX="364.0" layoutY="188.0" onMouseClicked="#tileHandler" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="tile4" fitHeight="44.0" fitWidth="56.0" layoutX="434.0" layoutY="194.0" onMouseClicked="#tileHandler" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="tile5" fitHeight="44.0" fitWidth="56.0" layoutX="490.0" layoutY="194.0" onMouseClicked="#tileHandler" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="tile6" fitHeight="44.0" fitWidth="56.0" layoutX="558.0" layoutY="194.0" onMouseClicked="#tileHandler" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="tile7" fitHeight="44.0" fitWidth="56.0" layoutX="624.0" layoutY="194.0" onMouseClicked="#tileHandler" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="tile8" fitHeight="44.0" fitWidth="56.0" layoutX="686.0" layoutY="194.0" onMouseClicked="#tileHandler" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="tile9" fitHeight="44.0" fitWidth="56.0" layoutX="758.0" layoutY="194.0" onMouseClicked="#tileHandler" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
