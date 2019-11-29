@@ -4,18 +4,20 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import sample.game.*;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
@@ -24,10 +26,10 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("here..");
-
         level = new Level(1);
         game = new Game(level);
+
+        System.out.println("inited");
 
         for (String plant: level.listOfUnlockedPlants) {
             seedSelected.put(plant, false);
@@ -37,7 +39,52 @@ public class GameController implements Initializable {
         plantImagePath.put("Wallnut", "/resources/wallnut.png");
         plantImagePath.put("Cherry Bomb", "/resources/cherrybomb.png");
         plantImagePath.put("Sunflower", "/resources/sunflower.png");
+
+        Timeline timeline;
+
+        KeyFrame kf = new KeyFrame(Duration.seconds(5), event -> {
+            dropSunToken();
+        });
+
+        timeline = new Timeline(kf);
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+
+        Thread t = new Thread(() -> {
+            System.out.println("inside the thread");
+
+            while(true) {
+                Zombie zombie = level.listOfZombies.remove(0);
+
+                zombie.getImageView().setLayoutX(zombie.getPositionX());
+                zombie.getImageView().setLayoutY(zombie.getPositionY());
+
+                backyard.getChildren().add(zombie.getImageView());
+
+                KeyFrame kf2 = new KeyFrame(Duration.millis(70), event -> {
+                    zombie.getImageView().setLayoutX(zombie.getImageView().getLayoutX() - zombie.getSpeed());
+
+//                    zombie.getImageView().setTranslateX(zombie.getSpeed());
+                });
+
+                Timeline timeline2 = new Timeline(kf2);
+                timeline2.setCycleCount(Animation.INDEFINITE);
+                timeline2.play();
+
+                try {
+                    Thread.sleep(zombie.getTimeBeforeNextZombie() * 10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        );
+
+        t.start();
     }
+
+    @FXML
+    public AnchorPane backyard;
 
     @FXML
     public AnchorPane menuAlert;
@@ -61,10 +108,44 @@ public class GameController implements Initializable {
     public ImageView peashooterSeed;
 
     @FXML
+    public Label counterLabel;
+
+    @FXML
     public ImageView tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9;
 
     HashMap<String, Boolean> seedSelected = new HashMap<>();
     HashMap<String, String> plantImagePath = new HashMap<>();
+
+    public void dropSunToken()
+    {
+        ImageView sun= new ImageView();
+        sun.setImage(new Image("/resources/sun.gif"));
+        sun.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                int temp=Integer.parseInt(counterLabel.getText());
+                counterLabel.setText(String.valueOf(temp+25));
+                backyard.getChildren().remove(event.getPickResult().getIntersectedNode());
+            }
+
+        });
+        int RandomY= new Random().nextInt(330)+20;
+        backyard.getChildren().add(sun);
+        sun.setFitHeight(40);
+        sun.setFitWidth(40);
+        sun.setLayoutY(10);
+        sun.setLayoutX(new Random().nextInt(622)+180);
+        Timeline timeline;
+
+        KeyFrame kf = new KeyFrame(Duration.millis(45), event -> {
+            if(sun.getLayoutY()<RandomY)
+                sun.setLayoutY(sun.getLayoutY() + 1);
+        });
+
+        timeline = new Timeline(kf);
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
 
     public void tileHandler(MouseEvent event) throws Exception {
         String id = event.getPickResult().getIntersectedNode().getId();
@@ -81,8 +162,6 @@ public class GameController implements Initializable {
                     game.listOfPlants.add(new Peashooter(tile));
             }
         }
-
-
     }
 
     public void seedClickHandler() throws Exception {
@@ -92,17 +171,15 @@ public class GameController implements Initializable {
 //        peashooterSeedSelected = true;
     }
 
-    public void dropSunToken() throws Exception {
-        System.out.println("clicked counter");
-        sunToken.setVisible(true);
-        TranslateTransition transition = new TranslateTransition();
-        transition.setDuration(Duration.seconds(6));
-        transition.setToY(200);
-        transition.setNode(sunToken);
-        transition.play();
-
-
-    }
+//    public void dropSunToken() throws Exception {
+//        System.out.println("clicked counter");
+//        sunToken.setVisible(true);
+//        TranslateTransition transition = new TranslateTransition();
+//        transition.setDuration(Duration.seconds(6));
+//        transition.setToY(200);
+//        transition.setNode(sunToken);
+//        transition.play();
+//    }
 
     public void zombieNormalHandler() throws Exception {
         System.out.println("clicked zombie");

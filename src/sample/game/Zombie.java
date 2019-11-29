@@ -1,12 +1,24 @@
 package sample.game;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public abstract class Zombie extends Unit {
     private int speed;
+    private int biteDamage;
+    private int timeBeforeNextZombie;
+    private ImageView imageView;
 
-    Zombie(String name, int health, int speed) {
+    Zombie(String name, int health, int speed, int timeBeforeNextZombie, int posX, int posY) {
+        this.setBiteDamage(1);
+        this.setTimeBeforeNextZombie(timeBeforeNextZombie);
         this.setName(name);
         this.setHealth(health);
         this.setSpeed(speed);
+        this.setPositionX(posX);
+        this.setPositionY(posY);
+        this.setImageView(new ImageView());
+        this.getImageView().setImage(new Image("resources/zombie_normal.gif"));
     }
 
     public void move() {
@@ -17,6 +29,14 @@ public abstract class Zombie extends Unit {
 
     }
 
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
+
     public int getSpeed() {
         return speed;
     }
@@ -24,23 +44,39 @@ public abstract class Zombie extends Unit {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
+
+    public int getBiteDamage() {
+        return biteDamage;
+    }
+
+    public void setBiteDamage(int biteDamage) {
+        this.biteDamage = biteDamage;
+    }
+
+    public int getTimeBeforeNextZombie() {
+        return timeBeforeNextZombie;
+    }
+
+    public void setTimeBeforeNextZombie(int timeBeforeNextZombie) {
+        this.timeBeforeNextZombie = timeBeforeNextZombie;
+    }
 }
 
 class NormalZombie extends Zombie {
-    NormalZombie(String name, int health, int speed) {
-        super(name, health, speed);
+    NormalZombie(String name, int health, int speed, int timeBeforeNextZombie, int posX, int posY) {
+        super(name, health, speed, timeBeforeNextZombie, posX, posY);
     }
 }
 
 class FlagZombie extends Zombie {
-    FlagZombie(String name, int health, int speed) {
-        super(name, health, speed);
+    FlagZombie(String name, int health, int speed, int timeBeforeNextZombie, int posX, int posY) {
+        super(name, health, speed, timeBeforeNextZombie, posX, posY);
     }
 }
 
 class ConeheadZombie extends Zombie{
-    ConeheadZombie(String name, int health, int speed) {
-        super(name, health, speed);
+    ConeheadZombie(String name, int health, int speed, int timeBeforeNextZombie, int posX, int posY) {
+        super(name, health, speed, timeBeforeNextZombie, posX, posY);
     }
 }
 
