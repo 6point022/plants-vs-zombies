@@ -50,37 +50,29 @@ public class GameController implements Initializable {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
-        Thread t = new Thread(() -> {
-            System.out.println("inside the thread");
-
-            while(true) {
+        Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
+            if (level.listOfZombies.size() > 0) {
                 Zombie zombie = level.listOfZombies.remove(0);
+                System.out.println("Zombie out");
 
                 zombie.getImageView().setLayoutX(zombie.getPositionX());
                 zombie.getImageView().setLayoutY(zombie.getPositionY());
-
                 backyard.getChildren().add(zombie.getImageView());
 
-                KeyFrame kf2 = new KeyFrame(Duration.millis(70), event -> {
-                    zombie.getImageView().setLayoutX(zombie.getImageView().getLayoutX() - zombie.getSpeed());
-
-//                    zombie.getImageView().setTranslateX(zombie.getSpeed());
+                KeyFrame kf3 = new KeyFrame(Duration.millis(100), event2 -> {
+                    if (zombie.getImageView().getLayoutX() > 160) {
+                        zombie.move();
+                    }
                 });
 
-                Timeline timeline2 = new Timeline(kf2);
-                timeline2.setCycleCount(Animation.INDEFINITE);
-                timeline2.play();
-
-                try {
-                    Thread.sleep(zombie.getTimeBeforeNextZombie() * 10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                Timeline timeline3 = new Timeline(kf3);
+                timeline3.setCycleCount(Animation.INDEFINITE);
+                timeline3.play();
             }
-        }
-        );
+        }));
 
-        t.start();
+        timeline2.setCycleCount(Animation.INDEFINITE);
+        timeline2.play();
     }
 
     @FXML
@@ -116,29 +108,69 @@ public class GameController implements Initializable {
     HashMap<String, Boolean> seedSelected = new HashMap<>();
     HashMap<String, String> plantImagePath = new HashMap<>();
 
-    public void dropSunToken()
+    public void shootpea(double x, double y)
     {
+        ImageView pea1= new ImageView();
+        pea1.setImage(new Image("/resources/pea.png"));
+        backyard.getChildren().add(pea1);
+        pea1.setFitHeight(25);
+        pea1.setFitWidth(25);
+        pea1.setLayoutY(y);
+        pea1.setLayoutX(x);
+        Timeline timeline3;
+        KeyFrame kf3 = new KeyFrame(Duration.millis(25), eve -> {
+            pea1.setLayoutX(pea1.getLayoutX() + 2);
+        });
+        timeline3 = new Timeline(kf3);
+        timeline3.setCycleCount(Animation.INDEFINITE);
+        timeline3.play();
+
+        Timeline timeline;
+        KeyFrame kf = new KeyFrame(Duration.seconds(5), event -> {
+            ImageView pea= new ImageView();
+            pea.setImage(new Image("/resources/pea.png"));
+            backyard.getChildren().add(pea);
+            pea.setFitHeight(25);
+            pea.setFitWidth(25);
+            pea.setLayoutY(y);
+            pea.setLayoutX(x);
+            Timeline timeline2;
+            KeyFrame kf2 = new KeyFrame(Duration.millis(25), ev -> {
+                pea.setLayoutX(pea.getLayoutX() + 2);
+            });
+            timeline2 = new Timeline(kf2);
+            timeline2.setCycleCount(Animation.INDEFINITE);
+            timeline2.play();
+
+        });
+        timeline = new Timeline(kf);
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+
+    }
+
+    public void dropSunToken() {
         ImageView sun= new ImageView();
         sun.setImage(new Image("/resources/sun.gif"));
-        sun.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        sun.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 int temp=Integer.parseInt(counterLabel.getText());
                 counterLabel.setText(String.valueOf(temp+25));
                 backyard.getChildren().remove(event.getPickResult().getIntersectedNode());
             }
-
         });
-        int RandomY= new Random().nextInt(330)+20;
+
+        int RandomY = new Random().nextInt(330) + 20;
         backyard.getChildren().add(sun);
         sun.setFitHeight(40);
         sun.setFitWidth(40);
         sun.setLayoutY(10);
-        sun.setLayoutX(new Random().nextInt(622)+180);
+        sun.setLayoutX(new Random().nextInt(622) + 180);
         Timeline timeline;
 
         KeyFrame kf = new KeyFrame(Duration.millis(45), event -> {
-            if(sun.getLayoutY()<RandomY)
+            if(sun.getLayoutY() < RandomY)
                 sun.setLayoutY(sun.getLayoutY() + 1);
         });
 
