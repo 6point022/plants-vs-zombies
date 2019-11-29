@@ -51,20 +51,8 @@ public class GameController {
         transition.play();
     }
 
-//    private class ZombieMove implements EventHandler<ActionEvent> {
-//        public void handle(ActionEvent e) {
-//
-//        }
-//    }
-
     public void zombieNormalHandler() throws Exception {
         System.out.println("clicked zombie");
-//        TranslateTransition transition = new TranslateTransition();
-//        transition.setDuration(Duration.seconds(6));
-//        transition.setToX(-500);
-//        transition.setNode(zombieNormal);
-//        transition.setCycleCount(Animation.INDEFINITE);
-//        transition.play();
 
         KeyFrame kf = new KeyFrame(Duration.millis(70), event -> {
             zombieNormal.setLayoutX(zombieNormal.getLayoutX() - 1);
@@ -87,25 +75,6 @@ public class GameController {
         Timeline timeline = new Timeline(kf);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-
-//        Thread t = new Thread(() -> {
-//            while(true) {
-//
-//                try {
-//                    Thread.sleep(100);
-//                }
-//
-//                catch(Exception e) {
-//
-//                }
-//                if (zombieNormal.getTranslateX() == pea.getTranslateX()) {
-//                    System.out.println("BOOM!");
-//                    break;
-//                }
-//            }
-//            });
-
-//        t.start();
     }
 
     public void peashooterHandler() throws Exception {
