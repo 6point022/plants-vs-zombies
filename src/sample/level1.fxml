@@ -43,11 +43,6 @@
                   <Image url="@../resources/peashooterplanted.gif" />
                </image>
             </ImageView>
-            <ImageView fx:id="pea" fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="5">
-               <image>
-                  <Image url="@../resources/pea.png" />
-               </image>
-            </ImageView>
          </children>
       </GridPane>
       <ImageView fitHeight="67.0" fitWidth="79.0" layoutX="159.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
@@ -112,6 +107,11 @@
       <ImageView fx:id="sunToken" fitHeight="36.0" fitWidth="49.0" layoutX="373.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../resources/sun.gif" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="pea" fitHeight="26.0" fitWidth="27.0" layoutX="373.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resources/pea.png" />
          </image>
       </ImageView>
    </children>
