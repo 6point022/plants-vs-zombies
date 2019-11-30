@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 
 
 public class GameController implements Initializable {
+
     @FXML
     public AnchorPane backyard;
 
@@ -30,8 +31,12 @@ public class GameController implements Initializable {
     Game game;
 
     public Boolean checkForCollision(double maxDiffX, double maxDiffY, ImageView i1, ImageView i2) {
+        System.out.println("Checking for collision");
+
         double _diffX = Math.abs(i1.getLayoutX() - i2.getLayoutX());
         double _diffY = Math.abs(i1.getLayoutY() - i2.getLayoutY());
+
+        System.out.println(_diffX + " " + _diffY);
 
         return _diffX <= maxDiffX && _diffY <= maxDiffY;
     }
@@ -118,21 +123,28 @@ public class GameController implements Initializable {
                     if (zombie.getPositionX() < 200) {
 
                         for (Lawnmower lawnmower: level.listOfLawnmower) {
+                            System.out.println("Checking listoflawnmowers");
                             if (lawnmower.isAlive) {
-                                if (checkForCollision(10, 100, zombie.getImageView(), lawnmower.getImageView())) {
+                                System.out.println("lawnmower is alive");
+
+                                if (checkForCollision(40, 200, zombie.getImageView(), lawnmower.getImageView())) {
                                     System.out.println("Colliding with lawnmower");
+                                    lawnmower.isAlive = false;
+
                                     Timeline t4 = new Timeline(new KeyFrame(Duration.millis(10), e2 -> {
                                         lawnmower.move();
-                                        lawnmower.isAlive = false;
 
-                                        for (Zombie z: level.listOfZombies) {
-                                            if (checkForCollision(10, 100, z.getImageView(), lawnmower.getImageView())) {
+                                        for (Zombie z: game.listOfWalkingZombies) {
+                                            if (checkForCollision(40, 200, z.getImageView(), lawnmower.getImageView())) {
                                                 System.out.println("Colliding with lawnmower2");
-                                                z.kill();
+                                                z.kill(game);
                                                 backyard.getChildren().remove(z.getImageView());
                                             }
                                         }
                                     }));
+
+                                    t4.setCycleCount(Animation.INDEFINITE);
+                                    t4.play();
                                 }
                             }
                         }

@@ -19,7 +19,7 @@ public class Lawnmower {
     }
 
     public void move() {
-        this.getImageView().setLayoutX(this.getImageView().getLayoutY() + 1);
+        this.getImageView().setLayoutX(this.getImageView().getLayoutX() + 5);
     }
 
     public int getPosX() {

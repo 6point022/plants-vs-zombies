@@ -9,7 +9,6 @@ public class Level {
     public ArrayList<Zombie> listOfZombies;
     public ArrayList<Lawnmower> listOfLawnmower;
 
-
     public Level(int levelNum) {
         this.levelNum = levelNum;
         this.listOfUnlockedPlants = new ArrayList<>();

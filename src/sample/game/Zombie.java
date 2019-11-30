@@ -21,7 +21,7 @@ public abstract class Zombie extends Unit {
         this.setTimeBeforeNextZombie(timeBeforeNextZombie);
         this.setName(name);
         this.setHealth(health);
-        this.setSpeed(10);
+        this.setSpeed(2);
         this.setPositionX(posX);
         this.setPositionY(posY);
         this.setImageView(new ImageView());
@@ -33,7 +33,8 @@ public abstract class Zombie extends Unit {
         this.setPositionX(this.getImageView().getLayoutX());
     }
 
-    public void kill() {
+    public void kill(Game game) {
+        game.listOfWalkingZombies.remove(this);
         timeline.stop();
     }
 
