@@ -21,11 +21,19 @@ public abstract class Zombie extends Unit {
         this.setTimeBeforeNextZombie(timeBeforeNextZombie);
         this.setName(name);
         this.setHealth(health);
-        this.setSpeed(2);
+        this.setSpeed(5);
         this.setPositionX(posX);
         this.setPositionY(posY);
         this.setImageView(new ImageView());
-        this.getImageView().setImage(new Image("resources/zombie_normal.gif"));
+
+        if (name.equals("Normal Zombie"))
+            this.getImageView().setImage(new Image("resources/zombie_normal.gif"));
+
+        else if (name.equals("Football Zombie"))
+            this.getImageView().setImage(new Image("resources/zombie_football.gif"));
+
+        this.getImageView().setFitWidth(56);
+        this.getImageView().setFitHeight(99);
     }
 
     public void move() {
@@ -89,8 +97,8 @@ class NormalZombie extends Zombie {
     }
 }
 
-class FlagZombie extends Zombie {
-    FlagZombie(String name, int health, int speed, int timeBeforeNextZombie, int posX, int posY) {
+class FootballZombie extends Zombie {
+    FootballZombie(String name, int health, int speed, int timeBeforeNextZombie, int posX, int posY) {
         super(name, health, speed, timeBeforeNextZombie, posX, posY);
     }
 }

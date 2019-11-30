@@ -61,9 +61,3 @@ class Suntokenproducer extends Plant{
         super(image, cost);
     }
 }
-class sunflower extends Suntokenproducer{
-
-    sunflower(ImageView image, int cost) {
-        super(image, cost);
-    }
-}
