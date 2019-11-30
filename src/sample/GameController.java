@@ -105,12 +105,13 @@ public class GameController implements Initializable {
 
                     for (Plant plant: game.listOfPlants) {
                         if (checkForCollision(4, 100, zombie.getImageView(), plant.getImageView())) {
-                                flag=true;
+                                flag = true;
                             System.out.println("plant collision");
                             if (zombie.bite(plant) == -1) {
                                 // Plant dead
 
                                 System.out.println("biting");
+                                game.listOfPlants.remove(plant);
                                 backyard.getChildren().remove(plant.getImageView());
                                 Peashooter tt=(Peashooter)plant;
                                 tt.timeline.stop();
