@@ -14,6 +14,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import sample.game.*;
+
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +31,8 @@ public class GameController implements Initializable {
 
     Level level;
     Game game;
+    ArrayList<Plant> tempListOfPlants;
+    ArrayList<Zombie> tempListOfWalkingZombies;
 
     public Boolean checkForCollision(double maxDiffX, double maxDiffY, ImageView i1, ImageView i2) {
 //        System.out.println("Checking for collision");
@@ -83,8 +87,10 @@ public class GameController implements Initializable {
                 backyard.getChildren().add(zombie.getImageView());
 
                 //check for plants in row of zombie and activate shooting
-                for (Plant p: game.listOfPlants)
-                {
+
+                tempListOfPlants = new ArrayList<>(game.listOfPlants);
+
+                for (Plant p: tempListOfPlants) {
                     if(p instanceof Peashooter) {//p.getClass()==new Peashooter(new ImageView()).getClass()) {
                         System.out.println("yesplant");
                         Peashooter pp= (Peashooter)p;
@@ -103,7 +109,9 @@ public class GameController implements Initializable {
                 KeyFrame kf3 = new KeyFrame(Duration.millis(100), event2 -> {
                     boolean flag = false;
 
-                    for (Plant plant: game.listOfPlants) {
+                    tempListOfPlants = new ArrayList<Plant>(game.listOfPlants);
+
+                    for (Plant plant: tempListOfPlants) {
                         if (checkForCollision(4, 100, zombie.getImageView(), plant.getImageView())) {
                                 flag = true;
                             System.out.println("plant collision");
@@ -138,7 +146,9 @@ public class GameController implements Initializable {
                                     Timeline t4 = new Timeline(new KeyFrame(Duration.millis(10), e2 -> {
                                         lawnmower.move();
 
-                                        for (Zombie z: game.listOfWalkingZombies) {
+                                        tempListOfWalkingZombies = new ArrayList<>(game.listOfWalkingZombies);
+
+                                        for (Zombie z: tempListOfWalkingZombies) {
                                             if (checkForCollision(40, 200, z.getImageView(), lawnmower.getImageView())) {
                                                 System.out.println("Colliding with lawnmower2");
                                                 z.kill(game);
@@ -252,7 +262,10 @@ public class GameController implements Initializable {
 
             KeyFrame kf2 = new KeyFrame(Duration.millis(25), ev -> {
                 pea.setLayoutX(pea.getLayoutX() + 3);
-                for(Zombie zombie: game.listOfWalkingZombies) {
+
+                tempListOfWalkingZombies = new ArrayList<Zombie>(game.listOfWalkingZombies);
+
+                for(Zombie zombie: tempListOfWalkingZombies) {
                     double diffX = Math.abs(zombie.getPositionX() - pea.getLayoutX());
                     double diffY = Math.abs(zombie.getPositionX() - pea.getLayoutX());
 
@@ -280,7 +293,7 @@ public class GameController implements Initializable {
         });
 
         timeline = new Timeline(kf);
-        Peashooter temp= (Peashooter) plant;
+        Peashooter temp = (Peashooter) plant;
         temp.timeline=timeline;
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
