@@ -7,14 +7,14 @@ public class Game {
     private int totalSunTokens;
 //    public ArrayList<Plant> listOfAvailablePlants;
     public ArrayList<Plant> listOfPlants;
-    public ArrayList<Zombie> listOfZombies;
+    public ArrayList<Zombie> listOfWalkingZombies;
     public ArrayList<Lawnmower> listOfLawnmower;
 
     public Game(Level level) {
         this.currLevel = level;
         this.totalSunTokens = 0;
         this.listOfPlants = new ArrayList<>();
-        this.listOfZombies = new ArrayList<>();
+        this.listOfWalkingZombies = new ArrayList<>();
         this.listOfLawnmower = new ArrayList<>();
 //        this.listOfLawnmower.add(new Lawnmower());
     }

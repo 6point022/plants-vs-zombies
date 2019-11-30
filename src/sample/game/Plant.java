@@ -4,13 +4,16 @@ import javafx.scene.image.ImageView;
 
 public abstract class Plant extends Unit {
     private long rechargeTime;
+    private int cost;
     private ImageView image;
-    Plant(ImageView image)
-    {
-        this.image=image;
+
+    Plant(ImageView image, int cost) {
+        this.image = image;
         this.setPositionX(image.getLayoutX());
         this.setPositionY(image.getLayoutY());
+        this.setCost(cost);
     }
+
     public long getRechargeTime() {
         return rechargeTime;
     }
@@ -26,33 +29,40 @@ public abstract class Plant extends Unit {
     public void setImage(ImageView image) {
         this.image = image;
     }
-}
 
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+}
 
 
 class Barrier extends Plant{
 
 
-    Barrier(ImageView image) {
-        super(image);
+    Barrier(ImageView image, int cost) {
+        super(image, cost);
     }
 }
 class Wallnut extends Barrier{
 
-    Wallnut(ImageView image) {
-        super(image);
+    Wallnut(ImageView image, int cost) {
+        super(image, cost);
     }
 }
 
 class Suntokenproducer extends Plant{
 
-    Suntokenproducer(ImageView image) {
-        super(image);
+    Suntokenproducer(ImageView image, int cost) {
+        super(image, cost);
     }
 }
 class sunflower extends Suntokenproducer{
 
-    sunflower(ImageView image) {
-        super(image);
+    sunflower(ImageView image, int cost) {
+        super(image, cost);
     }
 }

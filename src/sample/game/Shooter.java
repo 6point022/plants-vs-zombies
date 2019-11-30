@@ -4,9 +4,10 @@ import javafx.scene.image.ImageView;
 
 public class Shooter extends Plant{
     private int attackvalue;
+    public Boolean shoot;
 
-    Shooter(ImageView image) {
-        super(image);
+    Shooter(ImageView image, int cost) {
+        super(image, cost);
         this.attackvalue = 100;
     }
 
