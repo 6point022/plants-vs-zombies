@@ -24,6 +24,13 @@ public class GameController implements Initializable {
     Level level;
     Game game;
 
+    public Boolean checkForCollision(double maxDiffX, double maxDiffY, ImageView i1, ImageView i2) {
+        double _diffX = Math.abs(i1.getLayoutX() - i2.getLayoutX());
+        double _diffY = Math.abs(i1.getLayoutY() - i1.getLayoutY());
+
+        return _diffX <= maxDiffX && _diffY <= maxDiffY;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         level = new Level(1);
@@ -43,7 +50,7 @@ public class GameController implements Initializable {
 
         Timeline timeline;
 
-        KeyFrame kf = new KeyFrame(Duration.seconds(5), event -> {
+        KeyFrame kf = new KeyFrame(Duration.seconds(10), event -> {
             dropSunToken();
         });
 
@@ -51,7 +58,7 @@ public class GameController implements Initializable {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
-        Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+        Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(10), event -> {
             if (level.listOfZombies.size() > 0) {
                 Zombie zombie = level.listOfZombies.remove(0);
                 System.out.println("Zombie out");
@@ -64,32 +71,47 @@ public class GameController implements Initializable {
                 //check for plants in row of zombie and activate shooting
                 for (Plant p: game.listOfPlants)
                 {
-                    if(p.getClass()==new Peashooter(new ImageView()).getClass())
-                    {
+                    if(p instanceof Peashooter) {//p.getClass()==new Peashooter(new ImageView()).getClass()) {
                         System.out.println("yesplant");
                         Peashooter pp= (Peashooter)p;
                         double diffX= zombie.getPositionX()-p.getPositionX();
                         double diffY= Math.abs(zombie.getPositionY()-p.getPositionY());
                         System.out.println(diffX);
                         System.out.println(diffY);
-                        if (diffX < 700 && diffY < 100 && !pp.shoot)
-                        {
-                            shootpea(p, p.getPositionX(),p.getPositionY());
-                            pp.shoot=true;
+
+                        if (diffX < 700 && diffY < 100 && !pp.shoot) {
+                            shootpea(p, p.getPositionX(), p.getPositionY());
+                            pp.shoot = true;
                         }
-
                     }
-
                 }
 
-
                 KeyFrame kf3 = new KeyFrame(Duration.millis(100), event2 -> {
+                    for (Plant plant: game.listOfPlants) {
+                        if (checkForCollision(4, 20, zombie.getImageView(), plant.getImageView())) {
+                            zombie.setSpeed(0);
+
+                            if (zombie.bite(plant) == -1) {
+                                // Plant dead
+//                                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), e -> {
+//                                    plant.getImageView().setImage(new Image("/resources/pea_shooter_dying"));
+//                                })
+//                                );
+//
+//                                timeline.setCycleCount(Animation.INDEFINITE);
+//                                timeline.play();
+                                backyard.getChildren().remove(plant);
+                            }
+                        }
+                    }
+
                     if (zombie.getImageView().getLayoutX() > 160) {
                         zombie.move();
                     }
                 });
 
                 Timeline timeline3 = new Timeline(kf3);
+                zombie.timeline = timeline3;
                 timeline3.setCycleCount(Animation.INDEFINITE);
                 timeline3.play();
             }
@@ -156,8 +178,10 @@ public class GameController implements Initializable {
                     if (peashooter.attack(zombie) == -1) {
                         // Zombie dead
                         game.listOfWalkingZombies.remove(zombie);
-                        backyard.getChildren().remove(zombie.getImageView());
 
+
+
+                        backyard.getChildren().remove(zombie.getImageView());
                     }
 
                     backyard.getChildren().remove(pea1);
@@ -175,7 +199,6 @@ public class GameController implements Initializable {
             ImageView pea= new ImageView();
             pea.setImage(new Image("/resources/pea.png"));
             backyard.getChildren().add(pea);
-
             pea.setFitHeight(20);
             pea.setFitWidth(20);
             pea.setLayoutY(y);
@@ -218,6 +241,7 @@ public class GameController implements Initializable {
     public void dropSunToken() {
         ImageView sun= new ImageView();
         sun.setImage(new Image("/resources/sun.gif"));
+
         sun.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {

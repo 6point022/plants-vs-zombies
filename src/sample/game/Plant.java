@@ -5,10 +5,10 @@ import javafx.scene.image.ImageView;
 public abstract class Plant extends Unit {
     private long rechargeTime;
     private int cost;
-    private ImageView image;
+    private ImageView imageView;
 
     Plant(ImageView image, int cost) {
-        this.image = image;
+        this.imageView = image;
         this.setPositionX(image.getLayoutX());
         this.setPositionY(image.getLayoutY());
         this.setCost(cost);
@@ -22,12 +22,12 @@ public abstract class Plant extends Unit {
         this.rechargeTime = rechargeTime;
     }
 
-    public ImageView getImage() {
-        return image;
+    public ImageView getImageView() {
+        return this.imageView;
     }
 
     public void setImage(ImageView image) {
-        this.image = image;
+        this.imageView = image;
     }
 
     public int getCost() {

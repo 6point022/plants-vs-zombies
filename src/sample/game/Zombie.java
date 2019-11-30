@@ -1,13 +1,19 @@
 package sample.game;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 public abstract class Zombie extends Unit {
     private int speed;
     private int biteDamage;
     private int timeBeforeNextZombie;
     private ImageView imageView;
+    public Timeline timeline;
+    static int counter = 0;
 
     Zombie(String name, int health, int speed, int timeBeforeNextZombie, int posX, int posY) {
         this.setBiteDamage(1);
@@ -26,8 +32,17 @@ public abstract class Zombie extends Unit {
         this.setPositionX(this.getImageView().getLayoutX());
     }
 
-    public void bite() {
+    public int bite(Plant plant) {
+        plant.setHealth(plant.getHealth() - this.getBiteDamage());
 
+        if (plant.getHealth() <= 0) {
+            this.setSpeed(2);
+            return -1;
+        }
+
+        else {
+            return 0;
+        }
     }
 
     public ImageView getImageView() {

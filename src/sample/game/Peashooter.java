@@ -1,5 +1,6 @@
 package sample.game;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Peashooter extends Plant {
@@ -13,6 +14,8 @@ public class Peashooter extends Plant {
         zombie.setHealth(zombie.getHealth() - 1);
 
         if (zombie.getHealth() <= 0) {
+            zombie.getImageView().setImage(new Image("/resources/zombie_normal_dying.gif"));
+            System.out.println("Zombie dying...");
             return -1;
         }
 
