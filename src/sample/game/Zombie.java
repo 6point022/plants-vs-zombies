@@ -6,6 +6,7 @@ import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import sample.GameController;
 
 public abstract class Zombie extends Unit {
     private int speed;
@@ -20,7 +21,7 @@ public abstract class Zombie extends Unit {
         this.setTimeBeforeNextZombie(timeBeforeNextZombie);
         this.setName(name);
         this.setHealth(health);
-        this.setSpeed(speed);
+        this.setSpeed(10);
         this.setPositionX(posX);
         this.setPositionY(posY);
         this.setImageView(new ImageView());
@@ -30,6 +31,10 @@ public abstract class Zombie extends Unit {
     public void move() {
         this.getImageView().setLayoutX(this.getImageView().getLayoutX() - this.getSpeed());
         this.setPositionX(this.getImageView().getLayoutX());
+    }
+
+    public void kill() {
+        timeline.stop();
     }
 
     public int bite(Plant plant) {

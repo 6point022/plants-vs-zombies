@@ -14,11 +14,6 @@
             <Image url="@../resources/level1.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="67.0" fitWidth="79.0" layoutX="159.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../resources/lawn_mower.gif" />
-         </image>
-      </ImageView>
       <ImageView fx:id="counter" fitHeight="34.0" fitWidth="115.0" layoutX="102.0" layoutY="5.0" onMouseClicked="#dropSunToken" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../resources/counter.png" />
@@ -68,24 +63,9 @@
             </Button>
          </children>
       </AnchorPane>
-      <ImageView fx:id="zombieNormal" fitHeight="117.0" fitWidth="67.0" layoutX="733.0" layoutY="256.0" onMouseClicked="#zombieNormalHandler">
-         <image>
-            <Image url="@../resources/zombie_normal.gif" />
-         </image>
-      </ImageView>
       <ImageView fx:id="sunToken" fitHeight="36.0" fitWidth="49.0" layoutX="373.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../resources/sun.gif" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="pea" fitHeight="26.0" fitWidth="27.0" layoutX="379.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../resources/pea.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="peashooterPlanted" fitHeight="56.0" fitWidth="57.0" layoutX="307.0" layoutY="274.0" onMouseClicked="#peashooterHandler" preserveRatio="true">
-         <image>
-            <Image url="@../resources/peashooterplanted.gif" />
          </image>
       </ImageView>
       <ImageView fx:id="tile1" fitHeight="44.0" fitWidth="67.0" layoutX="237.0" layoutY="188.0" onMouseClicked="#tileHandler" pickOnBounds="true" preserveRatio="true" />

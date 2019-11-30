@@ -20,13 +20,18 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+
+
 public class GameController implements Initializable {
+    @FXML
+    public AnchorPane backyard;
+
     Level level;
     Game game;
 
     public Boolean checkForCollision(double maxDiffX, double maxDiffY, ImageView i1, ImageView i2) {
         double _diffX = Math.abs(i1.getLayoutX() - i2.getLayoutX());
-        double _diffY = Math.abs(i1.getLayoutY() - i1.getLayoutY());
+        double _diffY = Math.abs(i1.getLayoutY() - i2.getLayoutY());
 
         return _diffX <= maxDiffX && _diffY <= maxDiffY;
     }
@@ -35,6 +40,10 @@ public class GameController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         level = new Level(1);
         game = new Game(level);
+
+        for (Lawnmower lawnmower: level.listOfLawnmower) {
+            backyard.getChildren().add(lawnmower.getImageView());
+        }
 
         // TODO: Remove the next line
         counterLabel.setText(Integer.toString(400));
@@ -87,30 +96,51 @@ public class GameController implements Initializable {
                 }
 
                 KeyFrame kf3 = new KeyFrame(Duration.millis(100), event2 -> {
-                    boolean flag=false;
+                    Boolean flag = false;
+
                     for (Plant plant: game.listOfPlants) {
                         if (checkForCollision(4, 20, zombie.getImageView(), plant.getImageView())) {
                                 flag=true;
                             if (zombie.bite(plant) == -1) {
                                 // Plant dead
-//                                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), e -> {
-//                                    plant.getImageView().setImage(new Image("/resources/pea_shooter_dying"));
-//                                })
-//                                );
-//
-//                                timeline.setCycleCount(Animation.INDEFINITE);
-//                                timeline.play();
+
                                 System.out.println("biting");
                                 backyard.getChildren().remove(plant.getImageView());
-                                flag=false;
+                                flag = false;
                             }
                         }
                     }
 
                     if (zombie.getImageView().getLayoutX() > 160 && !flag) {
-
                         zombie.move();
                     }
+
+                    if (zombie.getPositionX() < 200) {
+
+                        for (Lawnmower lawnmower: level.listOfLawnmower) {
+                            if (lawnmower.isAlive) {
+                                if (checkForCollision(10, 100, zombie.getImageView(), lawnmower.getImageView())) {
+                                    System.out.println("Colliding with lawnmower");
+                                    Timeline t4 = new Timeline(new KeyFrame(Duration.millis(10), e2 -> {
+                                        lawnmower.move();
+                                        lawnmower.isAlive = false;
+
+                                        for (Zombie z: level.listOfZombies) {
+                                            if (checkForCollision(10, 100, z.getImageView(), lawnmower.getImageView())) {
+                                                System.out.println("Colliding with lawnmower2");
+                                                z.kill();
+                                                backyard.getChildren().remove(z.getImageView());
+                                            }
+                                        }
+                                    }));
+                                }
+                            }
+                        }
+
+                        zombie.timeline.stop();
+                        backyard.getChildren().remove(zombie.getImageView());
+                    }
+
                 });
 
                 Timeline timeline3 = new Timeline(kf3);
@@ -124,8 +154,7 @@ public class GameController implements Initializable {
         timeline2.play();
     }
 
-    @FXML
-    public AnchorPane backyard;
+
 
     @FXML
     public AnchorPane menuAlert;
@@ -181,9 +210,6 @@ public class GameController implements Initializable {
                     if (peashooter.attack(zombie) == -1) {
                         // Zombie dead
                         game.listOfWalkingZombies.remove(zombie);
-
-
-
                         backyard.getChildren().remove(zombie.getImageView());
                     }
 
@@ -404,9 +430,9 @@ public class GameController implements Initializable {
 
     }
 
-    public void test(MouseEvent event){
-//        System.out.println(event.getX());
+//    public void test(MouseEvent event){
+//        System.out.println(event.getLayoutX());
 //        System.out.println(event.getY());
-    }
+//    }
 
 }
