@@ -21,19 +21,37 @@ public abstract class Zombie extends Unit {
         this.setTimeBeforeNextZombie(timeBeforeNextZombie);
         this.setName(name);
         this.setHealth(health);
-        this.setSpeed(10);
+        this.setSpeed(speed);
         this.setPositionX(posX);
         this.setPositionY(posY);
+        this.setRowNum(posY);
         this.setImageView(new ImageView());
 
-        if (name.equals("Normal Zombie"))
+        if (this instanceof NormalZombie) {
             this.getImageView().setImage(new Image("resources/zombie_normal.gif"));
+            this.getImageView().setFitWidth(50);
+            this.getImageView().setFitHeight(70);
+            this.getImageView().setTranslateY(20);
+        }
 
-        else if (name.equals("Football Zombie"))
+        else if (this instanceof FootballZombie) {
             this.getImageView().setImage(new Image("resources/zombie_football.gif"));
+            this.getImageView().setFitWidth(50);
+            this.getImageView().setFitHeight(60);
+            this.getImageView().setTranslateY(30);
+            setRowNum(getRowNum() + 1);
 
-        this.getImageView().setFitWidth(56);
-        this.getImageView().setFitHeight(99);
+        }
+
+        else if (this instanceof ConeheadZombie) {
+            this.getImageView().setImage(new Image("resources/zombie_newspaper.gif"));
+            this.getImageView().setFitWidth(100);
+            this.getImageView().setFitHeight(60);
+            this.getImageView().setTranslateY(30);
+        }
+
+//        this.getImageView().setFitWidth(56);
+//        this.getImageView().setFitHeight(99);
     }
 
     public void move() {
@@ -44,6 +62,7 @@ public abstract class Zombie extends Unit {
     public void kill(Game game) {
         game.listOfWalkingZombies.remove(this);
         timeline.stop();
+        this.getImageView().setLayoutX(-1000);
     }
 
     public int bite(Plant plant) {

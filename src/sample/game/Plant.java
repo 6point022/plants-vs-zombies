@@ -7,12 +7,13 @@ public abstract class Plant extends Unit {
     private int cost;
     private ImageView imageView;
 
-    Plant(ImageView image, int cost) {
+    Plant(ImageView image, int cost, int health) {
         this.imageView = image;
         this.setPositionX(image.getLayoutX());
         this.setPositionY(image.getLayoutY());
+        this.setRowNum(this.getPositionY());
         this.setCost(cost);
-        this.setHealth(20);
+        this.setHealth(health);
     }
 
     public long getRechargeTime() {
@@ -45,19 +46,14 @@ class Barrier extends Plant{
 
 
     Barrier(ImageView image, int cost) {
-        super(image, cost);
+        super(image, cost, cost);
     }
 }
-class Wallnut extends Barrier{
 
-    Wallnut(ImageView image, int cost) {
-        super(image, cost);
-    }
-}
 
 class Suntokenproducer extends Plant{
 
     Suntokenproducer(ImageView image, int cost) {
-        super(image, cost);
+        super(image, cost, cost);
     }
 }

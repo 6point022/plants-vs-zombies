@@ -7,6 +7,24 @@ public abstract class Unit implements Serializable {
     private int health;
     private double positionX;
     private double positionY;
+    private int rowNum;
+
+    public int getRowNum() {
+        return rowNum;
+    }
+
+    public void setRowNum(double posY) {
+        if (posY < 99)
+            this.rowNum = 1;
+        else if (posY < 169)
+            this.rowNum = 2;
+        else if (posY < 230)
+            this.rowNum = 3;
+        else if (posY < 299)
+            this.rowNum = 4;
+        else
+            this.rowNum = 5;
+    }
 
     public int getHealth() {
         return health;

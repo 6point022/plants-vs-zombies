@@ -9,7 +9,7 @@ public class Peashooter extends Plant {
     public Timeline timeline;
 
     public Peashooter(ImageView imageView) {
-        super(imageView, 100);
+        super(imageView, 100, 20);
     }
 
     public int attack(Zombie zombie) {
