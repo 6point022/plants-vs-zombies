@@ -31,12 +31,12 @@ public class GameController implements Initializable {
     Game game;
 
     public Boolean checkForCollision(double maxDiffX, double maxDiffY, ImageView i1, ImageView i2) {
-        System.out.println("Checking for collision");
+//        System.out.println("Checking for collision");
 
         double _diffX = Math.abs(i1.getLayoutX() - i2.getLayoutX());
         double _diffY = Math.abs(i1.getLayoutY() - i2.getLayoutY());
 
-        System.out.println(_diffX + " " + _diffY);
+//        System.out.println(_diffX + " " + _diffY);
 
         return _diffX <= maxDiffX && _diffY <= maxDiffY;
     }
@@ -101,16 +101,19 @@ public class GameController implements Initializable {
                 }
 
                 KeyFrame kf3 = new KeyFrame(Duration.millis(100), event2 -> {
-                    Boolean flag = false;
+                    boolean flag = false;
 
                     for (Plant plant: game.listOfPlants) {
-                        if (checkForCollision(4, 20, zombie.getImageView(), plant.getImageView())) {
+                        if (checkForCollision(4, 100, zombie.getImageView(), plant.getImageView())) {
                                 flag=true;
+                            System.out.println("plant collision");
                             if (zombie.bite(plant) == -1) {
                                 // Plant dead
 
                                 System.out.println("biting");
                                 backyard.getChildren().remove(plant.getImageView());
+                                Peashooter tt=(Peashooter)plant;
+                                tt.timeline.stop();
                                 flag = false;
                             }
                         }
@@ -254,11 +257,13 @@ public class GameController implements Initializable {
 
                     if (diffX < 3 && diffY < 50) {
                         System.out.println("Shot");
+                        pea.setLayoutX(1000);
                         Peashooter peashooter = (Peashooter) plant;
 
                         if (peashooter.attack(zombie) == -1) {
                             // Zombie dead
                             game.listOfWalkingZombies.remove(zombie);
+                            zombie.timeline.stop();
                             backyard.getChildren().remove(zombie.getImageView());
                         }
 
@@ -274,6 +279,8 @@ public class GameController implements Initializable {
         });
 
         timeline = new Timeline(kf);
+        Peashooter temp= (Peashooter) plant;
+        temp.timeline=timeline;
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 

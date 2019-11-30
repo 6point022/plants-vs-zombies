@@ -42,7 +42,6 @@ public abstract class Zombie extends Unit {
         plant.setHealth(plant.getHealth() - this.getBiteDamage());
 
         if (plant.getHealth() <= 0) {
-            this.setSpeed(2);
             return -1;
         }
 

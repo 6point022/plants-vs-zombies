@@ -1,11 +1,12 @@
 package sample.game;
 
+import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Peashooter extends Plant {
     public boolean shoot;
-
+    public Timeline timeline;
     public Peashooter(ImageView image) {
         super(image, 100);
     }
