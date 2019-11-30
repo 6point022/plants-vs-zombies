@@ -5,8 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Sunflower extends Plant {
-    private ImageView imageView;
-    public Timeline timeline;
+    public transient Timeline timeline;
 
 //    public void loadImage() {
 //        imageView = new ImageView();

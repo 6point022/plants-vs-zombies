@@ -1,8 +1,9 @@
 package sample.game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Game {
+public class Game implements Serializable {
     private Level currLevel;
     private int totalSunTokens;
 //    public ArrayList<Plant> listOfAvailablePlants;

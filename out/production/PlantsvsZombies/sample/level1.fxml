@@ -29,7 +29,7 @@
             <Font name="Arial Black" size="17.0" />
          </font>
       </Label>
-      <ImageView fx:id="peashooterSeed" disable="true" fitHeight="41.0" fitWidth="78.0" layoutX="14.0" layoutY="11.0" onMouseClicked="#seedClickHandler" opacity="0.5" pickOnBounds="true">
+      <ImageView fx:id="peashooterSeed" fitHeight="41.0" fitWidth="78.0" layoutX="14.0" layoutY="11.0" onMouseClicked="#seedClickHandler" pickOnBounds="true">
          <image>
             <Image url="@../resources/peashooter.png" />
          </image>
@@ -46,7 +46,7 @@
       </ImageView>
       <AnchorPane fx:id="menuAlert" disable="true" layoutX="304.0" layoutY="62.0" prefHeight="281.0" prefWidth="367.0" style="-fx-border-color: black; -fx-background-color: gray; -fx-border-radius: 10;" visible="false">
          <children>
-            <Button layoutX="109.0" layoutY="56.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="150.0" text="Save">
+            <Button layoutX="109.0" layoutY="56.0" mnemonicParsing="false" onMouseClicked="#Savegamehandler" prefHeight="48.0" prefWidth="150.0" text="Save">
                <font>
                   <Font size="22.0" />
                </font>

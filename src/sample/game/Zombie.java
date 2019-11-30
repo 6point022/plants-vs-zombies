@@ -12,8 +12,8 @@ public abstract class Zombie extends Unit {
     private int speed;
     private int biteDamage;
     private int timeBeforeNextZombie;
-    private ImageView imageView;
-    public Timeline timeline;
+    private transient ImageView imageView;
+    public transient Timeline timeline;
     static int counter = 0;
 
     Zombie(String name, int health, int speed, int timeBeforeNextZombie, int posX, int posY) {

@@ -1,9 +1,10 @@
 package sample.game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Level {
+public class Level implements Serializable {
     private int levelNum;
     public ArrayList<String> listOfUnlockedPlants;
     public ArrayList<Zombie> listOfZombies;

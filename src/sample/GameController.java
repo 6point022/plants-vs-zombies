@@ -3,31 +3,37 @@ package sample;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import sample.game.*;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.ResourceBundle;
-
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public class GameController implements Initializable {
@@ -61,6 +67,7 @@ public class GameController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         level = new Level(1);
         game = new Game(level);
+
         counterpeashooter=0;
         for (Lawnmower lawnmower: level.listOfLawnmower) {
             backyard.getChildren().add(lawnmower.getImageView());
@@ -277,6 +284,7 @@ public class GameController implements Initializable {
         timeline2.setCycleCount(Animation.INDEFINITE);
         zombiestimeline=timeline2;
         timeline2.play();
+
     }
 
 
@@ -627,6 +635,50 @@ public class GameController implements Initializable {
         labell.setFont(new Font(30));
         labell.setTextFill(Color.web("#000000"));
         counterflag=true;
+
+    }
+    public void Savegamehandler() throws IOException {
+
+        AtomicReference<String> username= new AtomicReference<>(new String());
+        Label labelfirst= new Label();
+        labelfirst.setFont(Font.font("Verdana", FontWeight.BOLD,20));
+        labelfirst.setText("Enter Your Name");
+        Button button= new Button("Submit");
+        TextField text= new TextField();
+        button.setOnAction(e ->
+                {
+                    username.set(new String(text.getText()));
+                    User saveuser= new User();
+                    saveuser.setSuncollected(Integer.parseInt(counterLabel.getText()));
+                    saveuser.setName(username.toString());
+                    saveuser.setGame(game);
+
+                    ObjectOutputStream out = null;
+                    try {
+                        out = new ObjectOutputStream (
+                                new FileOutputStream(saveuser.getName()));
+                        out.writeObject(saveuser);
+                        System.out.println("serialized");
+                        System.exit(0);
+                    } catch (FileNotFoundException e1) {
+                        e1.printStackTrace();
+                    } catch (IOException e2) {
+                        e2.printStackTrace();
+                    } finally {
+                        try {
+                            out.close();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+        );
+
+        VBox layout= new VBox(5);
+        layout.setLayoutX(240);
+        layout.getChildren().addAll(labelfirst, text, button);
+        backyard.getChildren().add(layout);
+
 
     }
 

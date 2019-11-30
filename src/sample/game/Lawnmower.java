@@ -3,10 +3,12 @@ package sample.game;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Lawnmower {
+import java.io.Serializable;
+
+public class Lawnmower implements Serializable {
     private int posX, posY;
     public Boolean isAlive;
-    private ImageView imageView;
+    private transient ImageView imageView;
 
     Lawnmower(int posX, int posY) {
         this.posX = posX;

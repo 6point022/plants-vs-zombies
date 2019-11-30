@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 
 public class Peashooter extends Plant {
     public boolean shoot;
-    public Timeline timeline;
+    public transient Timeline timeline;
 
     public Peashooter(ImageView imageView) {
         super(imageView, 100);
