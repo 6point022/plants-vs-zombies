@@ -20,6 +20,27 @@ public class ChooseLevelController {
         Main.window.setScene(new Scene(root, Main.width, Main.height));
     }
 
+    public void level2Handler() throws Exception {
+
+        Parent root = FXMLLoader.load(getClass().getResource("level2.fxml"));
+        Main.window.setTitle("Level 2");
+        Main.window.setScene(new Scene(root, Main.width, Main.height));
+    }
+
+    public void level3Handler() throws Exception {
+
+        Parent root = FXMLLoader.load(getClass().getResource("level2.fxml"));
+        Main.window.setTitle("Level 2");
+        Main.window.setScene(new Scene(root, Main.width, Main.height));
+    }
+
+    public void level4Handler() throws Exception {
+
+        Parent root = FXMLLoader.load(getClass().getResource("level2.fxml"));
+        Main.window.setTitle("Level 2");
+        Main.window.setScene(new Scene(root, Main.width, Main.height));
+    }
+
     public void level5Handler() throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("level5.fxml"));
         Main.window.setTitle("Level 5");
