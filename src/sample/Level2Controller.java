@@ -5,15 +5,21 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 import sample.game.*;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +32,14 @@ public class Level2Controller implements Initializable {
 
     @FXML
     public AnchorPane backyard;
-
+    public Timeline suntimeline;
+    public Timeline zombiestimeline;
+    public int counterpeashooter;
+    public int counterwin;
+    public boolean gameended;
+    public boolean counterflag;
+    public int counterlost;
+    public int countersunflower;
     Level level;
     Game game;
     ArrayList<Plant> tempListOfPlants;
@@ -72,7 +85,91 @@ public class Level2Controller implements Initializable {
 
         timeline = new Timeline(kf);
         timeline.setCycleCount(Animation.INDEFINITE);
+        suntimeline=timeline;
         timeline.play();
+
+
+        //*****************Counter timer
+        Timeline timeline4;
+
+        KeyFrame kf4 = new KeyFrame(Duration.seconds(1), event -> {
+            counterpeashooter++;
+            countersunflower++;
+            if (counterpeashooter>5)
+            {
+                peashooterSeed.setOpacity(1);
+                peashooterSeed.setDisable(false);
+            }
+            if(countersunflower>5)
+            {
+                sunflowerSeed.setOpacity(1);
+                sunflowerSeed.setDisable(false);
+            }
+            if(counterflag && !gameended){
+                gameended=true;
+                counterlost++;
+                if(counterlost>=5)
+                {
+                    Parent root = null;
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Main.window.setTitle("Main menu");
+                    Main.window.setScene(new Scene(root, Main.width, Main.height));
+                }
+
+            }
+
+            if(game.listOfWalkingZombies.size()==0 && level.listOfZombies.size()==0)
+            {
+                counterwin++;
+                suntimeline.pause();
+                zombiestimeline.pause();
+                for(Plant p: game.listOfPlants)
+                {
+                    if(p instanceof Peashooter)
+                    {
+                        Peashooter x= (Peashooter)p;
+                        if(x!=null)
+                            x.timeline.pause();
+                    }
+                }
+                for(Zombie z: game.listOfWalkingZombies)
+                {
+                    z.timeline.pause();
+                }
+                Label labell= new Label();
+                backyard.getChildren().add(labell);
+                labell.setText("YOU WIN!!");
+                labell.setLayoutX(450);
+                labell.setLayoutY(130);
+                labell.setFont(new Font(30));
+                labell.setTextFill(Color.web("#000000"));
+                if(counterwin>=8 && !gameended)
+                {
+                    gameended=true;
+                    Parent root = null;
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("chooselevel.fxml"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Main.window.setTitle("Choose Level");
+                    Main.window.setScene(new Scene(root, Main.width, Main.height));
+                }
+//                labell.setMinSize(50,50);
+            }
+        });
+
+        timeline4 = new Timeline(kf4);
+//        suntimeline=timeline;
+        timeline4.setCycleCount(Animation.INDEFINITE);
+        timeline4.play();
+
+        //**************************************************till here
 
         Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(10), event -> {
             if (level.listOfZombies.size() > 0) {
@@ -133,7 +230,12 @@ public class Level2Controller implements Initializable {
                             }
                         }
                     }
-
+                    if(zombie.getPositionX()<165)
+                    {
+                        zombie.timeline.stop();
+                        backyard.getChildren().remove(zombie.getImageView());
+                        gamelost();
+                    }
                     if (zombie.getImageView().getLayoutX() > 160 && !flag) {
                         zombie.move();
                     }
@@ -169,8 +271,7 @@ public class Level2Controller implements Initializable {
                             }
                         }
 
-                        zombie.timeline.stop();
-                        backyard.getChildren().remove(zombie.getImageView());
+
                     }
 
                 });
@@ -183,6 +284,7 @@ public class Level2Controller implements Initializable {
         }));
 
         timeline2.setCycleCount(Animation.INDEFINITE);
+        zombiestimeline=timeline2;
         timeline2.play();
     }
 
@@ -206,7 +308,7 @@ public class Level2Controller implements Initializable {
     public ImageView sunToken;
 
     @FXML
-    public ImageView peashooterSeed;
+    public ImageView peashooterSeed,sunflowerSeed;
 
     @FXML
     public Label counterLabel;
@@ -241,6 +343,10 @@ public class Level2Controller implements Initializable {
                     if (peashooter.attack(zombie) == -1) {
                         // Zombie dead
                         game.listOfWalkingZombies.remove(zombie);
+                        zombie.getImageView().setLayoutX(-1000);
+                        zombie.getImageView().setLayoutY(-1000);
+                        System.out.println("Layoutchanged");
+                        zombie.timeline.stop();
                         backyard.getChildren().remove(zombie.getImageView());
                     }
 
@@ -282,6 +388,7 @@ public class Level2Controller implements Initializable {
                         if (peashooter.attack(zombie) == -1) {
                             // Zombie dead
                             game.listOfWalkingZombies.remove(zombie);
+                            zombie.getImageView().setLayoutX(-1000);
                             zombie.timeline.stop();
                             backyard.getChildren().remove(zombie.getImageView());
                         }
@@ -421,14 +528,22 @@ public class Level2Controller implements Initializable {
         if (seedId.equals("peashooterSeed")) {
             if (Integer.parseInt(counterLabel.getText()) >= 100) {
                 seedSelected.replace("Peashooter", true);
-//                System.out.println("True done");
+                // FOR OPACITY PROPOERT
+                peashooterSeed.setOpacity(0.5);
+                peashooterSeed.setDisable(true);
+                counterpeashooter=0;
+                //*******************
             }
         }
 
         if (seedId.equals("sunflowerSeed")) {
             if (Integer.parseInt(counterLabel.getText()) >= 50) {
                 seedSelected.replace("Sunflower", true);
-//                System.out.println("True done");
+                // FOR OPACITY PROPOERT
+                sunflowerSeed.setOpacity(0.5);
+                sunflowerSeed.setDisable(true);
+                countersunflower=0;
+                //*******************
             }
         }
 
@@ -483,17 +598,66 @@ public class Level2Controller implements Initializable {
 
     public void menuHandler() throws Exception {
         System.out.println("clicked menu");
+        menuAlert.toFront();
         menuAlert.setVisible(true);
         menuAlert.setDisable(false);
+        gamepause();
+    }
+    public void gamepause()
+    {
+        suntimeline.pause();
+        zombiestimeline.pause();
+        for(Plant p: game.listOfPlants)
+        {
+            if(p instanceof Peashooter)
+            {
+                Peashooter x= (Peashooter)p;
+                if(x!=null)
+                    x.timeline.pause();
+            }
+        }
+        for(Zombie z: game.listOfWalkingZombies)
+        {
+            z.timeline.pause();
+        }
+
     }
 
     public void resumeButtonHandler() {
+        menuAlert.toBack();
         menuAlert.setVisible(false);
         menuAlert.setDisable(true);
+        zombiestimeline.play();
+        suntimeline.play();
+        for(Plant p: game.listOfPlants)
+        {
+            if(p instanceof Peashooter)
+            {
+                Peashooter x= (Peashooter)p;
+                x.timeline.play();
+            }
+        }
+        for(Zombie z: game.listOfWalkingZombies)
+        {
+            z.timeline.play();
+        }
     }
 
+    public void ExitbuttonHandler() throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+
+        Main.window.setTitle("Choose Level");
+        Main.window.setScene(new Scene(root, Main.width, Main.height));
+    }
     public void peashooterButtonHandler() {
         System.out.println("Clicked peashooter");
+    }
+    public void restartButton() throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("chooselevel.fxml"));
+
+        Main.window.setTitle("Choose Level");
+        Main.window.setScene(new Scene(root, Main.width, Main.height));
+
     }
 
     public void sunflowerButtonHandler() {
@@ -508,9 +672,20 @@ public class Level2Controller implements Initializable {
         System.out.println("Clicked cherry bomb");
     }
 
-    public void plantscheckinrow(){
+    public void gamelost(){
+        gamepause();
+        Label labell= new Label();
+        backyard.getChildren().add(labell);
+        labell.setText("YOU LOOSE!");
+        labell.setLayoutX(450);
+        labell.setLayoutY(130);
+        labell.setFont(new Font(30));
+        labell.setTextFill(Color.web("#000000"));
+        counterflag=true;
 
     }
+
+
 
 //    public void test(MouseEvent event){
 //        System.out.println(event.getLayoutX());
