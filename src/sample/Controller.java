@@ -14,7 +14,7 @@ public class Controller {
     public void startButtonHandler(ActionEvent e) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("chooselevel.fxml"));
         Main.window.setTitle("Scene 2");
-        Main.window.setScene(new Scene(root, Main.width, Main.height));
+        Main.window.getScene().setRoot(root);
     }
 
     public void exitButtonHandler(ActionEvent e) {

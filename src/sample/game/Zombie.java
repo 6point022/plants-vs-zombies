@@ -26,6 +26,7 @@ public abstract class Zombie extends Unit {
         this.setPositionY(posY);
         this.setImageView(new ImageView());
         this.getImageView().setImage(new Image("resources/zombie_normal.gif"));
+
     }
 
     public void move() {
