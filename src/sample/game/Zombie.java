@@ -23,6 +23,7 @@ public abstract class Zombie extends Unit {
 
     public void move() {
         this.getImageView().setLayoutX(this.getImageView().getLayoutX() - this.getSpeed());
+        this.setPositionX(this.getImageView().getLayoutX());
     }
 
     public void bite() {

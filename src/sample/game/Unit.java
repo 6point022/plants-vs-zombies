@@ -5,18 +5,18 @@ import java.io.Serializable;
 public abstract class Unit implements Serializable {
     private String name;
     private int health;
-    private int positionX;
-    private int positionY;
+    private double positionX;
+    private double positionY;
 
     public int getHealth() {
         return health;
     }
 
-    public int getPositionX() {
+    public double getPositionX() {
         return positionX;
     }
 
-    public int getPositionY() {
+    public double getPositionY() {
         return positionY;
     }
 
@@ -32,11 +32,11 @@ public abstract class Unit implements Serializable {
         this.name = name;
     }
 
-    public void setPositionX(int positionX) {
+    public void setPositionX(double positionX) {
         this.positionX = positionX;
     }
 
-    public void setPositionY(int positionY) {
+    public void setPositionY(double positionY) {
         this.positionY = positionY;
     }
 

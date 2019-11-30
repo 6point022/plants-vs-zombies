@@ -8,6 +8,8 @@ public abstract class Plant extends Unit {
     Plant(ImageView image)
     {
         this.image=image;
+        this.setPositionX(image.getLayoutX());
+        this.setPositionY(image.getLayoutY());
     }
     public long getRechargeTime() {
         return rechargeTime;
