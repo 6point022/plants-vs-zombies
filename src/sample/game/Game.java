@@ -16,5 +16,4 @@ public class Game {
         this.listOfWalkingZombies = new ArrayList<>();
 //        this.listOfLawnmower.add(new Lawnmower());
     }
-
 }

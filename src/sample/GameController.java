@@ -39,6 +39,7 @@ public class GameController implements Initializable {
     public int counterpeashooter;
     public int counterwin;
     public boolean counterflag;
+    public boolean gameEnded;
     public int counterlost;
     Level level;
     Game game;
@@ -102,8 +103,9 @@ public class GameController implements Initializable {
 
             if(counterflag){
                 counterlost++;
-                if(counterlost>=5)
+                if(counterlost>=5 && !gameEnded)
                 {
+                    gameEnded = true;
                     Parent root = null;
                     try {
                         root = FXMLLoader.load(getClass().getResource("sample.fxml"));
@@ -114,7 +116,6 @@ public class GameController implements Initializable {
                     Main.window.setTitle("Main menu");
                     Main.window.setScene(new Scene(root, Main.width, Main.height));
                 }
-
             }
 
             if(game.listOfWalkingZombies.size()==0 && level.listOfZombies.size()==0)
@@ -135,6 +136,7 @@ public class GameController implements Initializable {
                 {
                     z.timeline.pause();
                 }
+
                 Label labell= new Label();
                 backyard.getChildren().add(labell);
                 labell.setText("YOU WIN!!");
@@ -622,8 +624,7 @@ public class GameController implements Initializable {
         labell.setLayoutY(130);
         labell.setFont(new Font(30));
         labell.setTextFill(Color.web("#000000"));
-        counterflag=true;
-
+        counterflag = true;
     }
 
 

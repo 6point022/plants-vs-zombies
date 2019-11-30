@@ -21,7 +21,7 @@ public abstract class Zombie extends Unit {
         this.setTimeBeforeNextZombie(timeBeforeNextZombie);
         this.setName(name);
         this.setHealth(health);
-        this.setSpeed(2);
+        this.setSpeed(10);
         this.setPositionX(posX);
         this.setPositionY(posY);
         this.setImageView(new ImageView());
