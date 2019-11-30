@@ -87,10 +87,10 @@ public class GameController implements Initializable {
                 }
 
                 KeyFrame kf3 = new KeyFrame(Duration.millis(100), event2 -> {
+                    boolean flag=false;
                     for (Plant plant: game.listOfPlants) {
                         if (checkForCollision(4, 20, zombie.getImageView(), plant.getImageView())) {
-                            zombie.setSpeed(0);
-
+                                flag=true;
                             if (zombie.bite(plant) == -1) {
                                 // Plant dead
 //                                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), e -> {
@@ -100,12 +100,15 @@ public class GameController implements Initializable {
 //
 //                                timeline.setCycleCount(Animation.INDEFINITE);
 //                                timeline.play();
-                                backyard.getChildren().remove(plant);
+                                System.out.println("biting");
+                                backyard.getChildren().remove(plant.getImageView());
+                                flag=false;
                             }
                         }
                     }
 
-                    if (zombie.getImageView().getLayoutX() > 160) {
+                    if (zombie.getImageView().getLayoutX() > 160 && !flag) {
+
                         zombie.move();
                     }
                 });

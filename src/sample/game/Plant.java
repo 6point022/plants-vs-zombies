@@ -12,6 +12,7 @@ public abstract class Plant extends Unit {
         this.setPositionX(image.getLayoutX());
         this.setPositionY(image.getLayoutY());
         this.setCost(cost);
+        this.setHealth(5);
     }
 
     public long getRechargeTime() {
