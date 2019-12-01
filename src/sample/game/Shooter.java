@@ -7,7 +7,7 @@ public class Shooter extends Plant{
     public Boolean shoot;
 
     Shooter(ImageView image, int cost) {
-        super(image, cost);
+        super(image, cost, cost);
         this.attackvalue = 100;
     }
 

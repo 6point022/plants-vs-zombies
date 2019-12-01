@@ -8,11 +8,13 @@ public abstract class Plant extends Unit {
     private transient ImageView imageView;
     private String id;
 
-    Plant(ImageView image, int cost) {
+    Plant(ImageView image, int cost, int health) {
         this.imageView = image;
         this.setPositionX(image.getLayoutX());
         this.setPositionY(image.getLayoutY());
+        this.setRowNum(this.getPositionY());
         this.setCost(cost);
+        this.setHealth(health);
         this.setHealth(20);
         this.setId(image.getId());
     }
@@ -55,19 +57,13 @@ class Barrier extends Plant{
 
 
     Barrier(ImageView image, int cost) {
-        super(image, cost);
-    }
-}
-class Wallnut extends Barrier{
-
-    Wallnut(ImageView image, int cost) {
-        super(image, cost);
+        super(image, cost, cost);
     }
 }
 
 class Suntokenproducer extends Plant{
 
     Suntokenproducer(ImageView image, int cost) {
-        super(image, cost);
+        super(image, cost, cost);
     }
 }
