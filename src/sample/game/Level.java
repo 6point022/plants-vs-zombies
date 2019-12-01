@@ -67,80 +67,101 @@ public class Level implements Serializable {
 
     private void addLawnmowers(int levelNum) {
         if (levelNum == 1) {
-            listOfLawnmower.add(new Lawnmower(159, 160));
+            listOfLawnmower.add(new Lawnmower(159, 160, 3));
         }
 
         else if (levelNum == 2) {
-            listOfLawnmower.add(new Lawnmower(159, 160));
-            listOfLawnmower.add(new Lawnmower(159, 240));
-            listOfLawnmower.add(new Lawnmower(159, 80));
+            listOfLawnmower.add(new Lawnmower(159, 160, 3));
+            listOfLawnmower.add(new Lawnmower(159, 240, 4));
+            listOfLawnmower.add(new Lawnmower(159, 80, 2));
 
         }
 
         else if (levelNum == 3) {
-            listOfLawnmower.add(new Lawnmower(159, 160));
-            listOfLawnmower.add(new Lawnmower(159, 240));
-            listOfLawnmower.add(new Lawnmower(159, 80));
+            listOfLawnmower.add(new Lawnmower(159, 160, 3));
+            listOfLawnmower.add(new Lawnmower(159, 240, 4));
+            listOfLawnmower.add(new Lawnmower(159, 80, 2));
         }
 
         else if (levelNum == 4) {
-            listOfLawnmower.add(new Lawnmower(159, 160));
-            listOfLawnmower.add(new Lawnmower(159, 240));
-            listOfLawnmower.add(new Lawnmower(159, 80));
-            listOfLawnmower.add(new Lawnmower(159, 310));
-            listOfLawnmower.add(new Lawnmower(159, 10));
+            listOfLawnmower.add(new Lawnmower(159, 160, 3));
+            listOfLawnmower.add(new Lawnmower(159, 240, 4));
+            listOfLawnmower.add(new Lawnmower(159, 80, 2));
+            listOfLawnmower.add(new Lawnmower(159, 310, 5));
+            listOfLawnmower.add(new Lawnmower(159, 10, 1));
         }
 
         else if (levelNum == 5) {
-            listOfLawnmower.add(new Lawnmower(159, 30));
-            listOfLawnmower.add(new Lawnmower(159, 90));
-            listOfLawnmower.add(new Lawnmower(159, 170));
-            listOfLawnmower.add(new Lawnmower(159, 240));
-            listOfLawnmower.add(new Lawnmower(159, 310));
+            listOfLawnmower.add(new Lawnmower(159, 30, 1));
+            listOfLawnmower.add(new Lawnmower(159, 90, 2));
+            listOfLawnmower.add(new Lawnmower(159, 170, 3));
+            listOfLawnmower.add(new Lawnmower(159, 240, 4));
+            listOfLawnmower.add(new Lawnmower(159, 310, 5));
         }
     }
 
     private void createZombieWaves(int levelNum) {
         if (levelNum == 1) {
             for (int i = 0; i < 5; i++) {
-                this.listOfZombies.add(new NormalZombie("Normal Zombie", 10, 2, 5, 758, 160));
+                this.listOfZombies.add(new NormalZombie("Normal Zombie", 10, 2, 5, 758, 160, 3));
             }
         }
 
         else if (levelNum == 2) {
-            this.listOfZombies.add(new NormalZombie("Normal Zombie", 10, 2, 5, 758, 150));
+            this.listOfZombies.add(new NormalZombie("Normal Zombie", 10, 2, 5, 758, 150, 3));
 
             for (int i = 0; i < 2; i++) {
-                this.listOfZombies.add(new NormalZombie("Football Zombie", 10, 5, 5, 758, 220));
+                this.listOfZombies.add(new FootballZombie("Football Zombie", 10, 5, 5, 758, 220, 4));
             }
 
             for (int i = 0; i < 2; i++) {
-                this.listOfZombies.add(new FootballZombie("Football Zombie", 10, 3, 5, 758, 80));
+                this.listOfZombies.add(new FootballZombie("Football Zombie", 10, 3, 5, 758, 80, 1));
             }
         }
 
         else if (levelNum == 3) {
+            this.listOfZombies.add(new NormalZombie("Normal Zombie", 10, 2, 5, 758, 150, 3));
 
-        }
-
-        else if (levelNum == 4) {
-
-        }
-
-        else if (levelNum == 5) {
-            this.listOfZombies.add(new NormalZombie("Normal Zombie", 10, 2, 5, 758, 150));
-
-            for (int i = 0; i < 1; i++) {
-                this.listOfZombies.add(new ConeheadZombie("Conehead Zombie", 30, 3, 5, 758, 300));
-            }
-
-            for (int i = 0; i < 1; i++) {
-                this.listOfZombies.add(new ConeheadZombie("Conehead Zombie", 30, 3, 5, 758, 150));
+            for (int i = 0; i < 2; i++) {
+                this.listOfZombies.add(new FootballZombie("Football Zombie", 10, 5, 5, 758, 220, 4));
             }
 
             for (int i = 0; i < 2; i++) {
-                this.listOfZombies.add(new FootballZombie("Football Zombie", 10, 3, 5, 758, 220));
+                this.listOfZombies.add(new FootballZombie("Football Zombie", 10, 3, 5, 758, 80, 1));
             }
+        }
+
+        else if (levelNum == 4) {
+            this.listOfZombies.add(new NormalZombie("Normal Zombie", 10, 2, 5, 758, 150, 3));
+
+            for (int i = 0; i < 1; i++) {
+                this.listOfZombies.add(new ConeheadZombie("Conehead Zombie", 30, 3, 5, 758, 220, 4));
+            }
+
+            for (int i = 0; i < 6; i++) {
+                this.listOfZombies.add(new ConeheadZombie("Conehead Zombie", 30, 3, 5, 758, 150, 3));
+            }
+
+            for (int i = 0; i < 2; i++) {
+                this.listOfZombies.add(new FootballZombie("Football Zombie", 10, 3, 5, 758, 150, 3));
+            }
+        }
+
+        else if (levelNum == 5) {
+            this.listOfZombies.add(new NormalZombie("Normal Zombie", 10, 2, 5, 758, 150, 3));
+
+            for (int i = 0; i < 2; i++) {
+                this.listOfZombies.add(new FootballZombie("Football Zombie", 10, 3, 5, 758, 220, 4));
+            }
+
+            for (int i = 0; i < 1; i++) {
+                this.listOfZombies.add(new ConeheadZombie("Conehead Zombie", 30, 3, 5, 758, 300, 5));
+            }
+
+            for (int i = 0; i < 6; i++) {
+                this.listOfZombies.add(new ConeheadZombie("Conehead Zombie", 30, 3, 5, 758, 150, 3));
+            }
+
         }
     }
 

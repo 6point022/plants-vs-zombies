@@ -95,9 +95,6 @@ public class Controller {
                              backyard.getChildren().add(i);
                          }
 
-
-
-
                      } catch (FileNotFoundException ex) {
                          System.out.println("notfound");
                          ex.printStackTrace();

@@ -16,7 +16,7 @@ public abstract class Zombie extends Unit {
     public transient Timeline timeline;
     static int counter = 0;
 
-    Zombie(String name, int health, int speed, int timeBeforeNextZombie, int posX, int posY) {
+    Zombie(String name, int health, int speed, int timeBeforeNextZombie, int posX, int posY, int rowNum) {
         this.setBiteDamage(1);
         this.setTimeBeforeNextZombie(timeBeforeNextZombie);
         this.setName(name);
@@ -24,7 +24,7 @@ public abstract class Zombie extends Unit {
         this.setSpeed(speed);
         this.setPositionX(posX);
         this.setPositionY(posY);
-        this.setRowNum(posY);
+        this.setRowNum(rowNum);
         this.setImageView(new ImageView());
 
         if (this instanceof NormalZombie) {
@@ -39,7 +39,7 @@ public abstract class Zombie extends Unit {
             this.getImageView().setFitWidth(50);
             this.getImageView().setFitHeight(60);
             this.getImageView().setTranslateY(30);
-            setRowNum(getRowNum() + 1);
+//            setRowNum(getRowNum() + 1);
 
         }
 
@@ -111,20 +111,20 @@ public abstract class Zombie extends Unit {
 }
 
 class NormalZombie extends Zombie {
-    NormalZombie(String name, int health, int speed, int timeBeforeNextZombie, int posX, int posY) {
-        super(name, health, speed, timeBeforeNextZombie, posX, posY);
+    NormalZombie(String name, int health, int speed, int timeBeforeNextZombie, int posX, int posY, int rowNum) {
+        super(name, health, speed, timeBeforeNextZombie, posX, posY, rowNum);
     }
 }
 
 class FootballZombie extends Zombie {
-    FootballZombie(String name, int health, int speed, int timeBeforeNextZombie, int posX, int posY) {
-        super(name, health, speed, timeBeforeNextZombie, posX, posY);
+    FootballZombie(String name, int health, int speed, int timeBeforeNextZombie, int posX, int posY, int rowNum) {
+        super(name, health, speed, timeBeforeNextZombie, posX, posY, rowNum);
     }
 }
 
 class ConeheadZombie extends Zombie{
-    ConeheadZombie(String name, int health, int speed, int timeBeforeNextZombie, int posX, int posY) {
-        super(name, health, speed, timeBeforeNextZombie, posX, posY);
+    ConeheadZombie(String name, int health, int speed, int timeBeforeNextZombie, int posX, int posY, int rowNum) {
+        super(name, health, speed, timeBeforeNextZombie, posX, posY, rowNum);
     }
 }
 

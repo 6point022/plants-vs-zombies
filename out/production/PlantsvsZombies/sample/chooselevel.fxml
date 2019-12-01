@@ -18,17 +18,17 @@
       </ImageView>
       <ImageView fitHeight="132.0" fitWidth="84.0" layoutX="317.0" layoutY="55.0" onMouseClicked="#level2Handler" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../resources/level2lockedicon.jpg" />
+            <Image url="@../resources/level2unlocked.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="121.0" fitWidth="97.0" layoutX="427.0" layoutY="85.0" onMouseClicked="#level3Handler" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../resources/level3locked.png" />
+            <Image url="@../resources/level3unlocked.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="121.0" fitWidth="84.0" layoutX="378.0" layoutY="217.0" onMouseClicked="#level4Handler" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../resources/level4locked.png" />
+            <Image url="@../resources/level4unlocked.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="120.0" fitWidth="84.0" layoutX="470.0" layoutY="217.0" onMouseClicked="#level5Handler" pickOnBounds="true" preserveRatio="true">

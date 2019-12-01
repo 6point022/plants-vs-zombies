@@ -39,29 +39,24 @@
                 <Image url="@../resources/menubutton.png" />
             </image>
         </ImageView>
-        <AnchorPane fx:id="menuAlert" disable="true" layoutX="304.0" layoutY="62.0" prefHeight="281.0" prefWidth="367.0" style="-fx-border-color: black; -fx-background-color: gray; -fx-border-radius: 10;" visible="false">
+        <AnchorPane fx:id="menuAlert" disable="true" layoutX="304.0" layoutY="92.0" prefHeight="236.0" prefWidth="282.0" style="-fx-border-color: black; -fx-background-color: gray; -fx-border-radius: 10;" visible="false">
             <children>
-                <Button layoutX="109.0" layoutY="56.0" mnemonicParsing="false" onMouseClicked="#Savegamehandler" prefHeight="48.0" prefWidth="150.0" text="Save">
+                <Button layoutX="67.0" layoutY="51.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="150.0" text="Save">
                     <font>
                         <Font size="22.0" />
                     </font>
                 </Button>
-                <Label layoutX="109.0" layoutY="14.0" prefHeight="31.0" prefWidth="150.0" style="-fx-border-color: black;" text="GAME PAUSED" textAlignment="JUSTIFY">
+                <Button layoutX="65.0" layoutY="174.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="156.0" text="Exit">
                     <font>
-                        <Font name="Bookman Old Style" size="19.0" />
+                        <Font size="22.0" />
+                    </font>
+                </Button>
+                <Label layoutX="66.0" layoutY="8.0" prefHeight="31.0" prefWidth="150.0" style="-fx-border-color: black;" text="GAME PAUSED">
+                    <font>
+                        <Font size="20.0" />
                     </font>
                 </Label>
-                <Button fx:id="resumeButton" layoutX="109.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#resumeButtonHandler" prefHeight="48.0" prefWidth="150.0" text="Resume">
-                    <font>
-                        <Font size="22.0" />
-                    </font>
-                </Button>
-                <Button layoutX="109.0" layoutY="219.0" mnemonicParsing="false" onMouseClicked="#restartButton" prefHeight="48.0" prefWidth="150.0" text="Restart">
-                    <font>
-                        <Font size="22.0" />
-                    </font>
-                </Button>
-                <Button layoutX="109.0" layoutY="165.0" mnemonicParsing="false" onMouseClicked="#ExitbuttonHandler" prefHeight="48.0" prefWidth="150.0" text="Exit">
+                <Button fx:id="resumeButton" layoutX="65.0" layoutY="118.0" mnemonicParsing="false" onMouseClicked="#resumeButtonHandler" prefHeight="31.0" prefWidth="156.0" text="Resume">
                     <font>
                         <Font size="22.0" />
                     </font>
@@ -114,7 +109,7 @@
       <ImageView fx:id="tile34" fitHeight="36.0" fitWidth="49.0" layoutX="624.0" layoutY="63.0" onMouseClicked="#tileHandler" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="tile35" fitHeight="31.0" fitWidth="49.0" layoutX="687.0" layoutY="69.0" onMouseClicked="#tileHandler" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="tile36" fitHeight="36.0" fitWidth="49.0" layoutX="754.0" layoutY="69.0" onMouseClicked="#tileHandler" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="tile37" fitHeight="41.0" fitWidth="56.0" layoutX="240.0" layoutY="327.0" onMouseClicked="#tileHandler" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="tile37" fitHeight="41.0" fitWidth="56.0" layoutX="240.0" layoutY="329.0" onMouseClicked="#tileHandler" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="tile38" fitHeight="31.0" fitWidth="56.0" layoutX="304.0" layoutY="329.0" onMouseClicked="#tileHandler" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="tile39" fitHeight="36.0" fitWidth="49.0" layoutX="368.0" layoutY="323.0" onMouseClicked="#tileHandler" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="tile40" fitHeight="36.0" fitWidth="38.0" layoutX="442.0" layoutY="323.0" onMouseClicked="#tileHandler" pickOnBounds="true" preserveRatio="true" />
@@ -131,6 +126,11 @@
       <ImageView fx:id="cherrybombSeed" fitHeight="44.0" fitWidth="98.0" layoutX="15.0" layoutY="166.0" onMouseClicked="#seedClickHandler" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../resources/cherrybomb.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="shovel" fitHeight="41.0" fitWidth="78.0" layoutX="15.0" layoutY="328.0" onMouseClicked="#seedClickHandler" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../shovel.png" />
          </image>
       </ImageView>
     </children>

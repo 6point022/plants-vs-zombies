@@ -2,7 +2,10 @@ package sample;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -42,6 +46,7 @@ public class Level2Controller implements Initializable {
     public AnchorPane backyard;
     public Timeline suntimeline;
     public Timeline zombiestimeline;
+    public Timeline statusbar;
     public int counterpeashooter;
     public int counterwin;
     public boolean gameended;
@@ -75,6 +80,7 @@ public class Level2Controller implements Initializable {
 
         // TODO: Remove the next line
         counterLabel.setText(Integer.toString(400));
+        progressbar();
 
         for (String plant: level.listOfUnlockedPlants) {
             seedSelected.put(plant, false);
@@ -223,7 +229,9 @@ public class Level2Controller implements Initializable {
 
                                 System.out.println("biting");
                                 game.listOfPlants.remove(plant);
-                                backyard.getChildren().remove(plant.getImageView());
+//                                backyard.getChildren().remove(plant.getImageView());
+                                plant.getImageView().setImage(null);
+
                                 if (plant instanceof Peashooter) {
                                     Peashooter tt=(Peashooter)plant;
                                     tt.timeline.stop();
@@ -615,6 +623,7 @@ public class Level2Controller implements Initializable {
     {
         suntimeline.pause();
         zombiestimeline.pause();
+        statusbar.pause();
         for(Plant p: game.listOfPlants)
         {
             if(p instanceof Peashooter)
@@ -637,6 +646,7 @@ public class Level2Controller implements Initializable {
         menuAlert.setDisable(true);
         zombiestimeline.play();
         suntimeline.play();
+        statusbar.play();
         for(Plant p: game.listOfPlants)
         {
             if(p instanceof Peashooter)
@@ -684,7 +694,7 @@ public class Level2Controller implements Initializable {
         gamepause();
         Label labell= new Label();
         backyard.getChildren().add(labell);
-        labell.setText("YOU LOOSE!");
+        labell.setText("YOU LOST!");
         labell.setLayoutX(450);
         labell.setLayoutY(130);
         labell.setFont(new Font(30));
@@ -736,6 +746,29 @@ public class Level2Controller implements Initializable {
         backyard.getChildren().add(layout);
 
     }
+    public void progressbar(){
+        ProgressBar progress = new ProgressBar();
+//        progress.setMinWidth(200);
+//        progress.setMaxWidth(Double.MAX_VALUE);
+        progress.setPrefWidth(200);
+        progress.setLayoutX(250);
+        progress.setLayoutY(15);
+        IntegerProperty seconds = new SimpleIntegerProperty();
+        progress.progressProperty().bind(seconds.divide(60.0));
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(seconds, 0)),
+                new KeyFrame(Duration.minutes(2), e-> {
+                    // do anything you need here on completion...
+                    System.out.println("Minute over");
+                }, new KeyValue(seconds, 60))
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        statusbar=timeline;
+        timeline.play();
+        backyard.getChildren().add(progress);
+
+    }
+
 
 
 

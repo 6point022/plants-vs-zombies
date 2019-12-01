@@ -2,7 +2,10 @@ package sample;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,7 +26,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 import sample.game.*;
-
+import sample.game.Sunflower;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -46,6 +50,7 @@ public class Level5Controller implements Initializable {
 
     public Timeline suntimeline;
     public Timeline zombiestimeline;
+    public Timeline statusbar;
     public int counterpeashooter, countersunflower, counterwallnut, countercherrybomb, countercherrybomb2;
     public int counterwin;
     public boolean gameended;
@@ -57,25 +62,25 @@ public class Level5Controller implements Initializable {
     ArrayList<Plant> tempListOfPlants;
     ArrayList<Zombie> tempListOfWalkingZombies;
 
-    public Boolean checkForCollision(double maxDiffX, double maxDiffY, ImageView i1, ImageView i2) {
-        System.out.println("Checking for collision");
-
-        double _diffX = Math.abs(i1.getLayoutX() - i2.getLayoutX());
-        double _diffY = Math.abs(i1.getLayoutY() - i2.getLayoutY());
-
-        System.out.println(_diffX + " " + _diffY);
-
-        return _diffX <= maxDiffX && _diffY <= maxDiffY;
+//    public Boolean checkForCollision(double maxDiffX, double maxDiffY, ImageView i1, ImageView i2) {
+////        System.out.println("Checking for collision");
+//
+//        double _diffX = Math.abs(i1.getLayoutX() - i2.getLayoutX());
+//        double _diffY = Math.abs(i1.getLayoutY() - i2.getLayoutY());
+//
+////        System.out.println(_diffX + " " + _diffY);
+//
+//        return _diffX <= maxDiffX && _diffY <= maxDiffY;
 //        return _diffX <= maxDiffX && u1.getRowNum() == u2.getRowNum();
-    }
+//    }
 
     public Boolean checkForCollision2(double maxDiffX, double maxDiffY, ImageView i1, ImageView i2, Unit u1, Unit u2) {
-        System.out.println("Checking for collision");
+//        System.out.println("Checking for collision");
 
         double _diffX = Math.abs(i1.getLayoutX() - i2.getLayoutX());
         double _diffY = Math.abs(i1.getLayoutY() - i2.getLayoutY());
 
-        System.out.println(_diffX + " " + _diffY);
+//        System.out.println(_diffX + " " + _diffY);
 
 //        return _diffX <= maxDiffX && _diffY <= maxDiffY;
         return _diffX <= maxDiffX && u1.getRowNum() == u2.getRowNum();
@@ -97,7 +102,8 @@ public class Level5Controller implements Initializable {
         }
 
         // TODO: Remove the next line
-        counterLabel.setText(Integer.toString(400));
+        counterLabel.setText(Integer.toString(500));
+        progressbar();
 
         for (String plant: level.listOfUnlockedPlants) {
             seedSelected.put(plant, false);
@@ -233,9 +239,11 @@ public class Level5Controller implements Initializable {
                 for (Plant p: tempListOfPlants) {
                     if (p instanceof Peashooter) {//p.getClass()==new Peashooter(new ImageView()).getClass()) {
                         System.out.println("yesplant");
-                        Peashooter pp= (Peashooter)p;
+                        Peashooter pp = (Peashooter)p;
+
                         double diffX= zombie.getPositionX()-p.getPositionX();
                         double diffY= Math.abs(zombie.getPositionY()-p.getPositionY());
+
                         System.out.println(diffX);
                         System.out.println(diffY);
 
@@ -252,27 +260,32 @@ public class Level5Controller implements Initializable {
                     tempListOfPlants = new ArrayList<Plant>(game.listOfPlants);
 
                     for (Plant plant: tempListOfPlants) {
+
+                        if (zombie.getName().equals("Football Zombie")) {
+                            System.out.println("I am football zombie" + zombie.getRowNum() + " " + plant.getRowNum());
+                            System.out.println(zombie.getImageView().getLayoutX() + " " + plant.getImageView().getLayoutX());
+                            System.out.println(zombie.getImageView().getLayoutY() + " " + plant.getImageView().getLayoutY());
+                        }
+
                         if (checkForCollision2(4, 50, zombie.getImageView(), plant.getImageView(), zombie, plant)) {
                             flag = true;
-                            System.out.println("plant collision");
+                            System.out.println("Plant collision");
 
-                            if (zombie.getName().equals("Football Zombie")) {
-                                System.out.println(zombie.getImageView().getLayoutX() + " " + plant.getImageView().getLayoutX());
-                                System.out.println(zombie.getImageView().getLayoutY() + " " + plant.getImageView().getLayoutY());
-                            }
 
                             if (zombie.bite(plant) == -1) {
                                 // Plant dead
 
                                 System.out.println("biting");
                                 game.listOfPlants.remove(plant);
-                                backyard.getChildren().remove(plant.getImageView());
+//                                backyard.getChildren().remove(plant.getImageView());
+                                plant.getImageView().setImage(null);
+
                                 if (plant instanceof Peashooter) {
-                                    Peashooter tt=(Peashooter)plant;
+                                    Peashooter tt = (Peashooter) plant;
                                     tt.timeline.stop();
                                 }
 
-                                else if(plant instanceof Sunflower) {
+                                else if (plant instanceof Sunflower) {
                                     Sunflower tt = (Sunflower) plant;
                                     tt.timeline.stop();
                                 }
@@ -298,7 +311,7 @@ public class Level5Controller implements Initializable {
                             if (lawnmower.isAlive) {
                                 System.out.println("lawnmower is alive");
 
-                                if (checkForCollision(40, 40, zombie.getImageView(), lawnmower.getImageView())) {
+                                if (checkForCollision2(40, 40, zombie.getImageView(), lawnmower.getImageView(), zombie, lawnmower)) {
                                     System.out.println("Colliding with lawnmower");
                                     lawnmower.isAlive = false;
 
@@ -308,7 +321,7 @@ public class Level5Controller implements Initializable {
                                         tempListOfWalkingZombies = new ArrayList<>(game.listOfWalkingZombies);
 
                                         for (Zombie z: tempListOfWalkingZombies) {
-                                            if (checkForCollision(40, 40, z.getImageView(), lawnmower.getImageView())) {
+                                            if (checkForCollision2(40, 40, z.getImageView(), lawnmower.getImageView(), z, lawnmower)) {
                                                 System.out.println("Colliding with lawnmower2");
                                                 z.kill(game);
                                                 backyard.getChildren().remove(z.getImageView());
@@ -396,7 +409,7 @@ public class Level5Controller implements Initializable {
                         game.listOfWalkingZombies.remove(zombie);
                         zombie.getImageView().setLayoutX(-1000);
                         zombie.getImageView().setLayoutY(-1000);
-                        System.out.println("Layoutchanged");
+                        System.out.println("Layout changed");
                         zombie.timeline.stop();
                         backyard.getChildren().remove(zombie.getImageView());
                     }
@@ -453,12 +466,11 @@ public class Level5Controller implements Initializable {
             timeline2 = new Timeline(kf2);
             timeline2.setCycleCount(Animation.INDEFINITE);
             timeline2.play();
-
         });
 
         timeline = new Timeline(kf);
         Peashooter temp = (Peashooter) plant;
-        temp.timeline=timeline;
+        temp.timeline = timeline;
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
@@ -561,7 +573,9 @@ public class Level5Controller implements Initializable {
 
     public void tileHandler(MouseEvent event) throws Exception {
         String id = event.getPickResult().getIntersectedNode().getId();
-        int tileId = Integer.parseInt(Character.toString(id.charAt(4)));
+//        int tileId = Integer.parseInt(Character.toString(id.charAt(4) + Character.toString(id.charAt(5))));
+        int tileId = Integer.parseInt(id.substring(4, id.length()));
+
         System.out.println(tileId);
         ImageView tile = (ImageView) event.getPickResult().getIntersectedNode();
         System.out.println(tile);
@@ -616,6 +630,36 @@ public class Level5Controller implements Initializable {
                     p = new Cherrybomb(tile);
                     game.listOfPlants.add(p);
                     cherryBoom((Cherrybomb) p);
+                }
+
+                try {
+                    if (tileId >= 28 && tileId <= 36) {
+                        p.setRowNum(1);
+                    }
+
+                    else if (tileId >= 10 && tileId <= 18) {
+                        p.setRowNum(2);
+                    }
+
+                    else if (tileId >= 1 && tileId <= 9) {
+                        p.setRowNum(3);
+                    }
+
+                    else if (tileId >= 19 && tileId <= 27) {
+                        p.setRowNum(4);
+                    }
+
+                    else if (tileId >= 37 && tileId <= 45) {
+                        p.setRowNum(5);
+                    }
+                }
+
+                catch (NullPointerException e) {
+
+                }
+
+                finally {
+                    System.out.println("Tile id is: " + tileId + "Plant row set as " + p.getRowNum());
                 }
 
                 counterLabel.setText(String.valueOf(Integer.parseInt(counterLabel.getText()) - p.getCost()));
@@ -734,6 +778,7 @@ public class Level5Controller implements Initializable {
     {
         suntimeline.pause();
         zombiestimeline.pause();
+        statusbar.pause();
         for(Plant p: game.listOfPlants)
         {
             if(p instanceof Peashooter)
@@ -756,6 +801,7 @@ public class Level5Controller implements Initializable {
         menuAlert.setDisable(true);
         zombiestimeline.play();
         suntimeline.play();
+        statusbar.play();
         for(Plant p: game.listOfPlants)
         {
             if(p instanceof Peashooter)
@@ -769,7 +815,6 @@ public class Level5Controller implements Initializable {
             z.timeline.play();
         }
     }
-
     public void ExitbuttonHandler() throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
@@ -791,7 +836,7 @@ public class Level5Controller implements Initializable {
         gamepause();
         Label labell= new Label();
         backyard.getChildren().add(labell);
-        labell.setText("YOU LOOSE!");
+        labell.setText("YOU LOST!");
         labell.setLayoutX(450);
         labell.setLayoutY(130);
         labell.setFont(new Font(30));
@@ -840,6 +885,28 @@ public class Level5Controller implements Initializable {
         layout.setLayoutX(240);
         layout.getChildren().addAll(labelfirst, text, button);
         backyard.getChildren().add(layout);
+
+    }
+    public void progressbar(){
+        ProgressBar progress = new ProgressBar();
+//        progress.setMinWidth(200);
+//        progress.setMaxWidth(Double.MAX_VALUE);
+        progress.setPrefWidth(200);
+        progress.setLayoutX(250);
+        progress.setLayoutY(15);
+        IntegerProperty seconds = new SimpleIntegerProperty();
+        progress.progressProperty().bind(seconds.divide(60.0));
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(seconds, 0)),
+                new KeyFrame(Duration.minutes(2), e-> {
+                    // do anything you need here on completion...
+                    System.out.println("Minute over");
+                }, new KeyValue(seconds, 60))
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        statusbar=timeline;
+        timeline.play();
+        backyard.getChildren().add(progress);
 
     }
 

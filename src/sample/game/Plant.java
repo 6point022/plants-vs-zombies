@@ -12,7 +12,7 @@ public abstract class Plant extends Unit {
         this.imageView = image;
         this.setPositionX(image.getLayoutX());
         this.setPositionY(image.getLayoutY());
-        this.setRowNum(this.getPositionY());
+//        this.setRowNum(this.getPositionY());
         this.setCost(cost);
         this.setHealth(health);
         this.setHealth(20);

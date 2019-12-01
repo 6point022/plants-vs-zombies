@@ -5,12 +5,12 @@ import javafx.scene.image.ImageView;
 
 import java.io.Serializable;
 
-public class Lawnmower implements Serializable {
+public class Lawnmower extends Unit implements Serializable {
     private int posX, posY;
     public Boolean isAlive;
     private transient ImageView imageView;
 
-    Lawnmower(int posX, int posY) {
+    Lawnmower(int posX, int posY, int rowNum) {
         this.posX = posX;
         this.posY = posY;
         this.isAlive = true;
@@ -18,6 +18,7 @@ public class Lawnmower implements Serializable {
         imageView.setImage(new Image("/resources/lawn_mower.gif"));
         imageView.setLayoutX(posX);
         imageView.setLayoutY(posY);
+        setRowNum(rowNum);
     }
 
     public void move() {
